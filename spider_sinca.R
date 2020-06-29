@@ -27,18 +27,18 @@
 #Formato Fecha
 #dd/mm/aaaa
 
-#Imput de datos#
+#Input de datos#
 #Comunas <- c("SA","PA","QU","LC")
 #Contaminantes <-c("PM10","PM25","NO","NOX","CH4","TEMPERATURA", "HR", "WD","WS")
-#imput_fecha_inicio<-"01/04/2014"
-#imput_fecha_termino<-"02/04/2014"
+#input_fecha_inicio<-"01/04/2014"
+#input_fecha_termino<-"02/04/2014"
 
-#Fin de Imput#
-spider_sinca<-function(Comunas, Contaminantes, imput_fecha_inicio, imput_fecha_termino){
+#Fin de Input#
+spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_termino){
   #Conversion de Fechas#
   #Fechas para tablas#
-  fi<-paste(imput_fecha_inicio,"1:00")
-  ft<-paste(imput_fecha_termino,"23:00")
+  fi<-paste(input_fecha_inicio,"1:00")
+  ft<-paste(input_fecha_termino,"23:00")
   Fecha_inicio<- as.POSIXct(strptime(fi, format = "%d/%m/%Y %H:%M"))
   Fecha_termino<- as.POSIXct(strptime(ft, format = "%d/%m/%Y %H:%M"))
   
@@ -2743,8 +2743,5 @@ spider_sinca<-function(Comunas, Contaminantes, imput_fecha_inicio, imput_fecha_t
       }
     }
   }
-  
-  View(data_total)
-  write.csv(data_total,"data", row.names = FALSE) #Crear CSV
   print("Datos Capturados!")
 }
