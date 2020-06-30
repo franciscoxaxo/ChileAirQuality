@@ -58,6 +58,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   {
     col_fecha<-c(col_fecha, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M"))
   }
+  data<-data.frame(col_fecha)
   #Selector de aranas#
   
   i =NULL; aux= NULL
