@@ -2745,4 +2745,5 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     }
   }
   print("Datos Capturados!")
+  data_total
 }
