@@ -19,7 +19,7 @@
 #NO----->NO
 #NO2----->NO2
 #NOX----->NOX
-#Temperatura--->TEMPERATURA
+#Temperatura--->Temperatura
 #Humedad relativa--->HR
 #Direccion del viento----->WD
 #Velocidad del Viento---->WS
@@ -29,7 +29,7 @@
 
 #Input de datos#
 #Comunas <- c("SA","PA","QU","LC")
-#Contaminantes <-c("PM10","PM25","NO","NOX","CH4","TEMPERATURA", "HR", "WD","WS")
+#Contaminantes <-c("PM10","PM25","NO","NOX","CH4","Temperatura", "HR", "WD","WS")
 #input_fecha_inicio<-"01/04/2014"
 #input_fecha_termino<-"02/04/2014"
 
@@ -59,6 +59,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     col_fecha<-c(col_fecha, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M"))
   }
   data<-data.frame(col_fecha)
+  data_total<-data.frame()
   #Selector de aranas#
   
   i =NULL; aux= NULL
@@ -203,7 +204,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                     } else
                     {
                       url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                      if(Contaminantes[p]=="TEMPERATURA")
+                      if(Contaminantes[p]=="Temperatura")
                       {
                         contaminante_arana<-"/Met/TEMP//"
                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -426,7 +427,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                       } else
                       {
                         url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                        if(Contaminantes[p]=="TEMPERATURA")
+                        if(Contaminantes[p]=="Temperatura")
                         {
                           contaminante_arana<-"/Met/TEMP//"
                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -648,7 +649,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         } else
                         {
                           url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                          if(Contaminantes[p]=="TEMPERATURA")
+                          if(Contaminantes[p]=="Temperatura")
                           {
                             contaminante_arana<-"/Met/TEMP//"
                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -870,7 +871,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                           } else
                           {
                             url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                            if(Contaminantes[p]=="TEMPERATURA")
+                            if(Contaminantes[p]=="Temperatura")
                             {
                               contaminante_arana<-"/Met/TEMP//"
                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -1092,7 +1093,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                             } else
                             {
                               url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                              if(Contaminantes[p]=="TEMPERATURA")
+                              if(Contaminantes[p]=="Temperatura")
                               {
                                 contaminante_arana<-"/Met/TEMP//"
                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -1314,7 +1315,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                               } else
                               {
                                 url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                if(Contaminantes[p]=="TEMPERATURA")
+                                if(Contaminantes[p]=="Temperatura")
                                 {
                                   contaminante_arana<-"/Met/TEMP//"
                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -1536,7 +1537,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                 } else
                                 {
                                   url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                  if(Contaminantes[p]=="TEMPERATURA")
+                                  if(Contaminantes[p]=="Temperatura")
                                   {
                                     contaminante_arana<-"/Met/TEMP//"
                                     url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -1758,7 +1759,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                   } else
                                   {
                                     url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                    if(Contaminantes[p]=="TEMPERATURA")
+                                    if(Contaminantes[p]=="Temperatura")
                                     {
                                       contaminante_arana<-"/Met/TEMP//"
                                       url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -1980,7 +1981,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                     } else
                                     {
                                       url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                      if(Contaminantes[p]=="TEMPERATURA")
+                                      if(Contaminantes[p]=="Temperatura")
                                       {
                                         contaminante_arana<-"/Met/TEMP//"
                                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -2202,7 +2203,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                       } else
                                       {
                                         url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                        if(Contaminantes[p]=="TEMPERATURA")
+                                        if(Contaminantes[p]=="Temperatura")
                                         {
                                           contaminante_arana<-"/Met/TEMP//"
                                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -2424,7 +2425,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                         } else
                                         {
                                           url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                          if(Contaminantes[p]=="TEMPERATURA")
+                                          if(Contaminantes[p]=="Temperatura")
                                           {
                                             contaminante_arana<-"/Met/TEMP//"
                                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
@@ -2646,7 +2647,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                           } else
                                           {
                                             url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                            if(Contaminantes[p]=="TEMPERATURA")
+                                            if(Contaminantes[p]=="Temperatura")
                                             {
                                               contaminante_arana<-"/Met/TEMP//"
                                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
