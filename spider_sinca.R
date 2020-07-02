@@ -2746,23 +2746,24 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     }
   }
   print("Datos Capturados!")
+  data_total
   i = NULL
-for (i in 1:length(data_total$PM25)) 
-  {
-  if(PM25[i]>PM10[i]){
-    data_total$PM25[i] = ""
-    data_total$PM10[i] = ""
+  for (i in 1:length(data_total$PM25)) 
+    {
+    if(PM25[i]>PM10[i]){
+      data_total$PM25[i] = ""
+      data_total$PM10[i] = ""
     }
-}
-i = NULL
-for (i in 1:data_total$NO) 
-{
-  if((NO[i]+NO2[i])>NOX[i]){
-    data_total$NO[i] = ""
-    data_total$NO2[i] = ""
-    data_total$NOX[i] = ""
+  }
+  i = NULL
+  for (i in 1:data_total$NO) 
+  {
+    if((NO[i]+NO2[i])>NOX[i]){
+      data_total$NO[i] = ""
+      data_total$NO2[i] = ""
+      data_total$NOX[i] = ""
+      data_total
+    }
   }
 }
 
-data_total
-}
