@@ -1,11 +1,11 @@
-Validar_NOX<-function(dataset, dataset$NO, dataset$NO2, dataset$NOX){
+Validar_NOX<-function(NO, NO2, NOX){
   i = NULL
-  for (i in 1:length(dataset$NO)) 
+  for (i in 1:length(NO)) 
   {
-    if((dataset$NO[i]+dataset$NO2[i])>dataset$NOX[i]){
-      dataset$NO[i] = ""
-      dataset$NO2[i] = ""
-      dataset$NOX[i] = ""
+    if((NO[i]+NO2[i])>NOX[i]){
+      NO[i] = ""
+      NO2[i] = ""
+      NOX[i] = ""
       
     }
   }
