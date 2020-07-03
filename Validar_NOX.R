@@ -1,4 +1,4 @@
-Validar_NOX<-function(){
+Validar_NOX<-function(dataset, dataset$NO, dataset$NO2, dataset$NOX){
   i = NULL
   for (i in 1:length(dataset$NO)) 
   {
