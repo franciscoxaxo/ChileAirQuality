@@ -53,12 +53,12 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   #Data frame vacio#
   
   
-  col_fecha= NULL; n =NULL
+  date= NULL; n =NULL
   for(n in 0:horas) 
   {
-    col_fecha<-c(col_fecha, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M"))
+    date<-c(date, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M"))
   }
-  data<-data.frame(col_fecha)
+  data<-data.frame(date)
   data_total<-data.frame()
   #Selector de aranas#
   
