@@ -70,8 +70,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     if(aux == "SA")
     {
       ciudad_arana<-"RM/D14"
-      col_ciudad<-rep(aux,horas+1)
-      data<-data.frame(col_fecha,col_ciudad)
+      site<-rep(aux,horas+1)
+      data<-data.frame(date,site)
       p= NULL; auxiliar = NULL
       for(p in 1:length(Contaminantes))
       {
@@ -293,8 +293,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       if(aux == "CE")
       {
         ciudad_arana<-"RM/D31"
-        col_ciudad<-rep(aux,horas+1)
-        data<-data.frame(col_fecha,col_ciudad)
+        site<-rep(aux,horas+1)
+        data<-data.frame(date,site)
         p= NULL; auxiliar = NULL
         for(p in 1:length(Contaminantes))
         {
@@ -515,8 +515,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
         if(aux == "CEi")
         {
           ciudad_arana<-"RM/D16"
-          col_ciudad<-rep(aux,horas+1)
-          data<-data.frame(col_fecha,col_ciudad)
+          site<-rep(aux,horas+1)
+          data<-data.frame(date,site)
           p= NULL; auxiliar = NULL
           for(p in 1:length(Contaminantes))
           {
@@ -737,8 +737,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
           if(aux == "CN")
           {
             ciudad_arana<-"RM/D18"
-            col_ciudad<-rep(aux,horas+1)
-            data<-data.frame(col_fecha,col_ciudad)
+            site<-rep(aux,horas+1)
+            data<-data.frame(date,site)
             p= NULL; auxiliar = NULL
             for(p in 1:length(Contaminantes))
             {
@@ -959,8 +959,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
             if(aux == "EB")
             {
               ciudad_arana<-"RM/D17"
-              col_ciudad<-rep(aux,horas+1)
-              data<-data.frame(col_fecha,col_ciudad)
+              site<-rep(aux,horas+1)
+              data<-data.frame(date,site)
               p= NULL; auxiliar = NULL
               for(p in 1:length(Contaminantes))
               {
@@ -1181,8 +1181,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
               if(aux == "IN")#Independencia
               {
                 ciudad_arana<-"RM/D11"
-                col_ciudad<-rep(aux,horas+1)
-                data<-data.frame(col_fecha,col_ciudad)
+                site<-rep(aux,horas+1)
+                data<-data.frame(date,site)
                 p= NULL; auxiliar = NULL
                 for(p in 1:length(Contaminantes))
                 {
@@ -1403,8 +1403,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                 if(aux == "LF")
                 {
                   ciudad_arana<-"RM/D12"
-                  col_ciudad<-rep(aux,horas+1)
-                  data<-data.frame(col_fecha,col_ciudad)
+                 site<-rep(aux,horas+1)
+                 data<-data.frame(date,site)
                   p= NULL; auxiliar = NULL
                   for(p in 1:length(Contaminantes))
                   {
@@ -1625,8 +1625,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                   if(aux == "LC")
                   {
                     ciudad_arana<-"RM/D13"
-                    col_ciudad<-rep(aux,horas+1)
-                    data<-data.frame(col_fecha,col_ciudad)
+                    site<-rep(aux,horas+1)
+                    data<-data.frame(date,site)
                     p= NULL; auxiliar = NULL
                     for(p in 1:length(Contaminantes))
                     {
@@ -1847,8 +1847,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                     if(aux == "PU")
                     {
                       ciudad_arana<-"RM/D15"
-                      col_ciudad<-rep(aux,horas+1)
-                      data<-data.frame(col_fecha,col_ciudad)
+                      site<-rep(aux,horas+1)
+                      data<-data.frame(date,site)
                       p= NULL; auxiliar = NULL
                       for(p in 1:length(Contaminantes))
                       {
@@ -2069,8 +2069,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                       if(aux == "PA")
                       {
                         ciudad_arana<-"RM/D27"
-                        col_ciudad<-rep(aux,horas+1)
-                        data<-data.frame(col_fecha,col_ciudad)
+                        site<-rep(aux,horas+1)
+                        data<-data.frame(date,site)
                         p= NULL; auxiliar = NULL
                         for(p in 1:length(Contaminantes))
                         {
@@ -2291,8 +2291,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         if(aux == "QU")
                         {
                           ciudad_arana<-"RM/D30"
-                          col_ciudad<-rep(aux,horas+1)
-                          data<-data.frame(col_fecha,col_ciudad)
+                          site<-rep(aux,horas+1)
+                          data<-data.frame(date,site)
                           p= NULL; auxiliar = NULL
                           for(p in 1:length(Contaminantes))
                           {
@@ -2513,8 +2513,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                           if(aux == "QUI")
                           {
                             ciudad_arana<-"RM/D19"
-                            col_ciudad<-rep(aux,horas+1)
-                            data<-data.frame(col_fecha,col_ciudad)
+                            site<-rep(aux,horas+1)
+                            data<-data.frame(date,site)
                             p= NULL; auxiliar = NULL
                             for(p in 1:length(Contaminantes))
                             {
