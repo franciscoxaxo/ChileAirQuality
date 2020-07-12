@@ -1403,8 +1403,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                 if(aux == "LF")
                 {
                   ciudad_arana<-"RM/D12"
-                 site<-rep(aux,horas+1)
-                 data<-data.frame(date,site)
+                  site<-rep(aux,horas+1)
+                  data<-data.frame(date,site)
                   p= NULL; auxiliar = NULL
                   for(p in 1:length(Contaminantes))
                   {
@@ -2745,7 +2745,10 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       }
     }
   }
+  for(i in 3:ncol(data_total)){
+    data_total[[i]]<-as.numeric(data_total[[i]])
+  }
+  
   print("Datos Capturados!")
   data_total
 }
-
