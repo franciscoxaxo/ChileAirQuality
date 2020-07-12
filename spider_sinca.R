@@ -2745,8 +2745,9 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       }
     }
   }
-  for(i in 3:ncol(data_total)){
-    data_total[[i]]<-as.numeric(data_total[[i]])
+  k= NULL
+  for(k in 3:ncol(data_total)){
+    data_total[[k]]<-as.numeric(data_total[[k]])
   }
   
   print("Datos Capturados!")
