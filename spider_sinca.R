@@ -71,6 +71,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     {
       ciudad_arana<-"RM/D14"
       site<-rep(aux,horas+1)
+      longitude<-rep("6296019",horas+1)
+      latitude<-rep("345673",horas+1)
       data<-data.frame(date,site)
       p= NULL; auxiliar = NULL
       for(p in 1:length(Contaminantes))
@@ -235,17 +237,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                             , silent = TRUE)
                         } else
                         {
-                          url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                          if(Contaminantes[p]=="WD")
+                          url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                          if(Contaminantes[p]=="wd")
                           {
                             contaminante_arana<-"/Met/WDIR//"
                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                             try(
                               {
-                                WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                WD_col1<-WD_bruto$X
-                                WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                data<-data.frame(data,WD)
+                                wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                wd_col1<-wd_bruto$X
+                                wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                data<-data.frame(data,wd)
                                 print(paste(auxiliar,aux))
                               }
                               , silent = TRUE)
@@ -254,7 +256,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                             url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                             if(Contaminantes[p]=="ws")
                             {
-                              contaminante_arana<-"/Met/wsPD//"
+                              contaminante_arana<-"/Met/WSPD//"
                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                               try(
                                 {
@@ -294,6 +296,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       {
         ciudad_arana<-"RM/D31"
         site<-rep(aux,horas+1)
+        longitude<-rep("6292449",horas+1)
+        latitude<-rep("341687",horas+1)
         data<-data.frame(date,site)
         p= NULL; auxiliar = NULL
         for(p in 1:length(Contaminantes))
@@ -458,17 +462,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                               , silent = TRUE)
                           } else
                           {
-                            url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                            if(Contaminantes[p]=="WD")
+                            url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                            if(Contaminantes[p]=="wd")
                             {
                               contaminante_arana<-"/Met/WDIR//"
                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                               try(
                                 {
-                                  WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                  WD_col1<-WD_bruto$X
-                                  WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                  data<-data.frame(data,WD)
+                                  wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                  wd_col1<-wd_bruto$X
+                                  wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                  data<-data.frame(data,wd)
                                   print(paste(auxiliar,aux))
                                 }
                                 , silent = TRUE)
@@ -477,7 +481,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                               url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                               if(Contaminantes[p]=="ws")
                               {
-                                contaminante_arana<-"/Met/wsPD//"
+                                contaminante_arana<-"/Met/WSPD//"
                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                 try(
                                   {
@@ -516,6 +520,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
         {
           ciudad_arana<-"RM/D16"
           site<-rep(aux,horas+1)
+          longitude<-rep("6292747",horas+1)
+          latitude<-rep("340277",horas+1)
           data<-data.frame(date,site)
           p= NULL; auxiliar = NULL
           for(p in 1:length(Contaminantes))
@@ -680,17 +686,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                 , silent = TRUE)
                             } else
                             {
-                              url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                              if(Contaminantes[p]=="WD")
+                              url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                              if(Contaminantes[p]=="wd")
                               {
                                 contaminante_arana<-"/Met/WDIR//"
                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                 try(
                                   {
-                                    WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                    WD_col1<-WD_bruto$X
-                                    WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                    data<-data.frame(data,WD)
+                                    wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                    wd_col1<-wd_bruto$X
+                                    wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                    data<-data.frame(data,wd)
                                     print(paste(auxiliar,aux))
                                   }
                                   , silent = TRUE)
@@ -699,7 +705,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                 url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                 if(Contaminantes[p]=="ws")
                                 {
-                                  contaminante_arana<-"/Met/wsPD//"
+                                  contaminante_arana<-"/Met/WSPD//"
                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                   try(
                                     {
@@ -738,6 +744,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
           {
             ciudad_arana<-"RM/D18"
             site<-rep(aux,horas+1)
+            longitude<-rep("6299360",horas+1)
+            latitude<-rep("338984",horas+1)
             data<-data.frame(date,site)
             p= NULL; auxiliar = NULL
             for(p in 1:length(Contaminantes))
@@ -902,17 +910,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                   , silent = TRUE)
                               } else
                               {
-                                url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                if(Contaminantes[p]=="WD")
+                                url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                if(Contaminantes[p]=="wd")
                                 {
                                   contaminante_arana<-"/Met/WDIR//"
                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                   try(
                                     {
-                                      WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                      WD_col1<-WD_bruto$X
-                                      WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                      data<-data.frame(data,WD)
+                                      wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                      wd_col1<-wd_bruto$X
+                                      wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                      data<-data.frame(data,wd)
                                       print(paste(auxiliar,aux))
                                     }
                                     , silent = TRUE)
@@ -921,7 +929,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                   url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                   if(Contaminantes[p]=="ws")
                                   {
-                                    contaminante_arana<-"/Met/wsPD//"
+                                    contaminante_arana<-"/Met/WSPD//"
                                     url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                     try(
                                       {
@@ -960,6 +968,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
             {
               ciudad_arana<-"RM/D17"
               site<-rep(aux,horas+1)
+              longitude<-rep("6286825",horas+1)
+              latitude<-rep("345313",horas+1)
               data<-data.frame(date,site)
               p= NULL; auxiliar = NULL
               for(p in 1:length(Contaminantes))
@@ -1124,17 +1134,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                     , silent = TRUE)
                                 } else
                                 {
-                                  url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                  if(Contaminantes[p]=="WD")
+                                  url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                  if(Contaminantes[p]=="wd")
                                   {
                                     contaminante_arana<-"/Met/WDIR//"
                                     url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                     try(
                                       {
-                                        WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                        WD_col1<-WD_bruto$X
-                                        WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                        data<-data.frame(data,WD)
+                                        wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                        wd_col1<-wd_bruto$X
+                                        wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                        data<-data.frame(data,wd)
                                         print(paste(auxiliar,aux))
                                       }
                                       , silent = TRUE)
@@ -1143,7 +1153,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                     url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                     if(Contaminantes[p]=="ws")
                                     {
-                                      contaminante_arana<-"/Met/wsPD//"
+                                      contaminante_arana<-"/Met/WSPD//"
                                       url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                       try(
                                         {
@@ -1182,6 +1192,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
               {
                 ciudad_arana<-"RM/D11"
                 site<-rep(aux,horas+1)
+                longitude<-rep("6300681",horas+1)
+                latitude<-rep("346488",horas+1)
                 data<-data.frame(date,site)
                 p= NULL; auxiliar = NULL
                 for(p in 1:length(Contaminantes))
@@ -1346,17 +1358,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                       , silent = TRUE)
                                   } else
                                   {
-                                    url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                    if(Contaminantes[p]=="WD")
+                                    url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                    if(Contaminantes[p]=="wd")
                                     {
                                       contaminante_arana<-"/Met/WDIR//"
                                       url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                       try(
                                         {
-                                          WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                          WD_col1<-WD_bruto$X
-                                          WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                          data<-data.frame(data,WD)
+                                          wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                          wd_col1<-wd_bruto$X
+                                          wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                          data<-data.frame(data,wd)
                                           print(paste(auxiliar,aux))
                                         }
                                         , silent = TRUE)
@@ -1365,7 +1377,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                       url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                       if(Contaminantes[p]=="ws")
                                       {
-                                        contaminante_arana<-"/Met/wsPD//"
+                                        contaminante_arana<-"/Met/WSPD//"
                                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                         try(
                                           {
@@ -1404,6 +1416,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                 {
                   ciudad_arana<-"RM/D12"
                   site<-rep(aux,horas+1)
+                  longitude<-rep("6290304",horas+1)
+                  latitude<-rep("352504",horas+1)
                   data<-data.frame(date,site)
                   p= NULL; auxiliar = NULL
                   for(p in 1:length(Contaminantes))
@@ -1568,17 +1582,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                         , silent = TRUE)
                                     } else
                                     {
-                                      url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                      if(Contaminantes[p]=="WD")
+                                      url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                      if(Contaminantes[p]=="wd")
                                       {
                                         contaminante_arana<-"/Met/WDIR//"
                                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                         try(
                                           {
-                                            WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                            WD_col1<-WD_bruto$X
-                                            WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                            data<-data.frame(data,WD)
+                                            wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                            wd_col1<-wd_bruto$X
+                                            wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                            data<-data.frame(data,wd)
                                             print(paste(auxiliar,aux))
                                           }
                                           , silent = TRUE)
@@ -1587,7 +1601,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                         url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                         if(Contaminantes[p]=="ws")
                                         {
-                                          contaminante_arana<-"/Met/wsPD//"
+                                          contaminante_arana<-"/Met/WSPD//"
                                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                           try(
                                             {
@@ -1626,6 +1640,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                   {
                     ciudad_arana<-"RM/D13"
                     site<-rep(aux,horas+1)
+                    longitude<-rep("6305906",horas+1)
+                    latitude<-rep("358305",horas+1)
                     data<-data.frame(date,site)
                     p= NULL; auxiliar = NULL
                     for(p in 1:length(Contaminantes))
@@ -1790,17 +1806,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                           , silent = TRUE)
                                       } else
                                       {
-                                        url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                        if(Contaminantes[p]=="WD")
+                                        url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                        if(Contaminantes[p]=="wd")
                                         {
                                           contaminante_arana<-"/Met/WDIR//"
                                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                           try(
                                             {
-                                              WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                              WD_col1<-WD_bruto$X
-                                              WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                              data<-data.frame(data,WD)
+                                              wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                              wd_col1<-wd_bruto$X
+                                              wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                              data<-data.frame(data,wd)
                                               print(paste(auxiliar,aux))
                                             }
                                             , silent = TRUE)
@@ -1809,7 +1825,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                           url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                           if(Contaminantes[p]=="ws")
                                           {
-                                            contaminante_arana<-"/Met/wsPD//"
+                                            contaminante_arana<-"/Met/WSPD//"
                                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                             try(
                                               {
@@ -2012,17 +2028,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                             , silent = TRUE)
                                         } else
                                         {
-                                          url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                          if(Contaminantes[p]=="WD")
+                                          url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                          if(Contaminantes[p]=="wd")
                                           {
                                             contaminante_arana<-"/Met/WDIR//"
                                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                             try(
                                               {
-                                                WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                WD_col1<-WD_bruto$X
-                                                WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                                data<-data.frame(data,WD)
+                                                wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                wd_col1<-wd_bruto$X
+                                                wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                                data<-data.frame(data,wd)
                                                 print(paste(auxiliar,aux))
                                               }
                                               , silent = TRUE)
@@ -2031,7 +2047,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                             url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                             if(Contaminantes[p]=="ws")
                                             {
-                                              contaminante_arana<-"/Met/wsPD//"
+                                              contaminante_arana<-"/Met/WSPD//"
                                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                               try(
                                                 {
@@ -2070,6 +2086,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                       {
                         ciudad_arana<-"RM/D27"
                         site<-rep(aux,horas+1)
+                        longitude<-rep("6282013",horas+1)
+                        latitude<-rep("352049",horas+1)
                         data<-data.frame(date,site)
                         p= NULL; auxiliar = NULL
                         for(p in 1:length(Contaminantes))
@@ -2234,17 +2252,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                               , silent = TRUE)
                                           } else
                                           {
-                                            url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                            if(Contaminantes[p]=="WD")
+                                            url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                            if(Contaminantes[p]=="wd")
                                             {
                                               contaminante_arana<-"/Met/WDIR//"
                                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                               try(
                                                 {
-                                                  WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                  WD_col1<-WD_bruto$X
-                                                  WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                                  data<-data.frame(data,WD)
+                                                  wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                  wd_col1<-wd_bruto$X
+                                                  wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                                  data<-data.frame(data,wd)
                                                   print(paste(auxiliar,aux))
                                                 }
                                                 , silent = TRUE)
@@ -2253,7 +2271,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                               url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                               if(Contaminantes[p]=="ws")
                                               {
-                                                contaminante_arana<-"/Met/wsPD//"
+                                                contaminante_arana<-"/Met/WSPD//"
                                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                                 try(
                                                   {
@@ -2292,6 +2310,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         {
                           ciudad_arana<-"RM/D30"
                           site<-rep(aux,horas+1)
+                          longitude<-rep("6306788",horas+1)
+                          latitude<-rep("339594",horas+1)
                           data<-data.frame(date,site)
                           p= NULL; auxiliar = NULL
                           for(p in 1:length(Contaminantes))
@@ -2456,17 +2476,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                                 , silent = TRUE)
                                             } else
                                             {
-                                              url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                              if(Contaminantes[p]=="WD")
+                                              url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                              if(Contaminantes[p]=="wd")
                                               {
                                                 contaminante_arana<-"/Met/WDIR//"
                                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                                 try(
                                                   {
-                                                    WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                    WD_col1<-WD_bruto$X
-                                                    WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                                    data<-data.frame(data,WD)
+                                                    wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                    wd_col1<-wd_bruto$X
+                                                    wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                                    data<-data.frame(data,wd)
                                                     print(paste(auxiliar,aux))
                                                   }
                                                   , silent = TRUE)
@@ -2475,7 +2495,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                                 url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                                 if(Contaminantes[p]=="ws")
                                                 {
-                                                  contaminante_arana<-"/Met/wsPD//"
+                                                  contaminante_arana<-"/Met/WSPD//"
                                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                                   try(
                                                     {
@@ -2514,6 +2534,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                           {
                             ciudad_arana<-"RM/D19"
                             site<-rep(aux,horas+1)
+                            longitude<-rep("6306788",horas+1)
+                            latitude<-rep("337356",horas+1)
                             data<-data.frame(date,site)
                             p= NULL; auxiliar = NULL
                             for(p in 1:length(Contaminantes))
@@ -2678,17 +2700,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                                   , silent = TRUE)
                                               } else
                                               {
-                                                url = NULL; contaminante_arana= NULL; WD_bruto =NULL;WD_col1 = NULL; WD = NULL
-                                                if(Contaminantes[p]=="WD")
+                                                url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
+                                                if(Contaminantes[p]=="wd")
                                                 {
                                                   contaminante_arana<-"/Met/WDIR//"
                                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                                   try(
                                                     {
-                                                      WD_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                      WD_col1<-WD_bruto$X
-                                                      WD<-gsub("NA","",gsub(" ", "",WD_col1))
-                                                      data<-data.frame(data,WD)
+                                                      wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                      wd_col1<-wd_bruto$X
+                                                      wd<-gsub("NA","",gsub(" ", "",wd_col1))
+                                                      data<-data.frame(data,wd)
                                                       print(paste(auxiliar,aux))
                                                     }
                                                     , silent = TRUE)
@@ -2697,7 +2719,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                                   url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                                   if(Contaminantes[p]=="ws")
                                                   {
-                                                    contaminante_arana<-"/Met/wsPD//"
+                                                    contaminante_arana<-"/Met/WSPD//"
                                                     url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                                     try(
                                                       {
@@ -2757,19 +2779,21 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
           
         }
       }
+      print("Datos NOX Validados!")
     }
   , silent = T)
   try(
     {
       i = NULL
-      for (i in 1:length(NO)) 
+      for (i in 1:length(PM10)) 
       {
         if((data_total$PM25[i])>(data_total$PM10[i]*1.0001)){
           data_total$PM10[i] = ""
           data_total$PM25[i] = ""
           
         }
-      } 
+      }
+      print("Datos PM Validados!")
     }
     
     , silent = T)
@@ -2780,7 +2804,6 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   }
   
   print("Datos Capturados!")
-  print("Datos Validados!")
+  
   return(data_total)
 }
-
