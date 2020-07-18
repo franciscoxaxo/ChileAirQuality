@@ -34,7 +34,7 @@
 #input_fecha_termino<-"02/04/2014"
 
 #Fin de Input#
-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_termino){
+spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_termino){
   #Conversion de Fechas#
   #Fechas para tablas#
   fi<-paste(input_fecha_inicio,"1:00")
