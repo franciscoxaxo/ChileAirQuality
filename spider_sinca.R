@@ -71,8 +71,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
     {
       ciudad_arana<-"RM/D14"
       site<-rep(aux,horas+1)
-      longitude<-rep("6296019",horas+1)
-      latitude<-rep("345673",horas+1)
+      longitude<-rep("-70.6604476",horas+1)
+      latitude<-rep("-33.450819",horas+1)
       data<-data.frame(date,site,longitude,latitude)
       p= NULL; auxiliar = NULL
       for(p in 1:length(Contaminantes))
@@ -296,8 +296,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       {
         ciudad_arana<-"RM/D31"
         site<-rep(aux,horas+1)
-        longitude<-rep("6292449",horas+1)
-        latitude<-rep("341687",horas+1)
+        longitude<-rep("-70.703947",horas+1)
+        latitude<-rep("-33.482411",horas+1)
         data<-data.frame(date,site,longitude,latitude)
         p= NULL; auxiliar = NULL
         for(p in 1:length(Contaminantes))
@@ -520,8 +520,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
         {
           ciudad_arana<-"RM/D16"
           site<-rep(aux,horas+1)
-          longitude<-rep("6292747",horas+1)
-          latitude<-rep("340277",horas+1)
+          longitude<-rep("-70,719064",horas+1)
+          latitude<-rep("-33.479515",horas+1)
           data<-data.frame(date,site,longitude,latitude)
           p= NULL; auxiliar = NULL
           for(p in 1:length(Contaminantes))
@@ -744,8 +744,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
           {
             ciudad_arana<-"RM/D18"
             site<-rep(aux,horas+1)
-            longitude<-rep("6299360",horas+1)
-            latitude<-rep("338984",horas+1)
+            longitude<-rep("-70.731790",horas+1)
+            latitude<-rep("-33.419725",horas+1)
             data<-data.frame(date,site,longitude,latitude)
             p= NULL; auxiliar = NULL
             for(p in 1:length(Contaminantes))
@@ -968,8 +968,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
             {
               ciudad_arana<-"RM/D17"
               site<-rep(aux,horas+1)
-              longitude<-rep("6286825",horas+1)
-              latitude<-rep("345313",horas+1)
+              longitude<-rep("-70.665906",horas+1)
+              latitude<-rep("-33.533626",horas+1)
               data<-data.frame(date,site,longitude,latitude)
               p= NULL; auxiliar = NULL
               for(p in 1:length(Contaminantes))
@@ -1192,8 +1192,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
               {
                 ciudad_arana<-"RM/D11"
                 site<-rep(aux,horas+1)
-                longitude<-rep("6300681",horas+1)
-                latitude<-rep("346488",horas+1)
+                longitude<-rep("-70.650886",horas+1)
+                latitude<-rep("-33.40892",horas+1)
                 data<-data.frame(date,site,longitude,latitude)
                 p= NULL; auxiliar = NULL
                 for(p in 1:length(Contaminantes))
@@ -1416,8 +1416,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                 {
                   ciudad_arana<-"RM/D12"
                   site<-rep(aux,horas+1)
-                  longitude<-rep("6290304",horas+1)
-                  latitude<-rep("352504",horas+1)
+                  longitude<-rep("-70.587916",horas+1)
+                  latitude<-rep("-33.503288",horas+1)
                   data<-data.frame(date,site,longitude,latitude)
                   p= NULL; auxiliar = NULL
                   for(p in 1:length(Contaminantes))
@@ -1640,8 +1640,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                   {
                     ciudad_arana<-"RM/D13"
                     site<-rep(aux,horas+1)
-                    longitude<-rep("6305906",horas+1)
-                    latitude<-rep("358305",horas+1)
+                    longitude<-rep("-70.523024",horas+1)
+                    latitude<-rep("-33.363453",horas+1)
                     data<-data.frame(date,site,longitude,latitude)
                     p= NULL; auxiliar = NULL
                     for(p in 1:length(Contaminantes))
@@ -1864,8 +1864,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                     {
                       ciudad_arana<-"RM/D15"
                       site<-rep(aux,horas+1)
-                      longitude<-rep("6298809",horas+1)
-                      latitude<-rep("337311",horas+1)
+                      longitude<-rep("-70.749876",horas+1)
+                      latitude<-rep("-33.424439",horas+1)
                       data<-data.frame(date,site,longitude,latitude)
                       p= NULL; auxiliar = NULL
                       for(p in 1:length(Contaminantes))
@@ -2088,8 +2088,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                       {
                         ciudad_arana<-"RM/D27"
                         site<-rep(aux,horas+1)
-                        longitude<-rep("6282013",horas+1)
-                        latitude<-rep("352049",horas+1)
+                        longitude<-rep("-70.594184",horas+1)
+                        latitude<-rep("-33.577948",horas+1)
                         data<-data.frame(date,site,longitude,latitude)
                         p= NULL; auxiliar = NULL
                         for(p in 1:length(Contaminantes))
@@ -2312,8 +2312,8 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         {
                           ciudad_arana<-"RM/D30"
                           site<-rep(aux,horas+1)
-                          longitude<-rep("6306788",horas+1)
-                          latitude<-rep("339594",horas+1)
+                          longitude<-rep("-70.723583",horas+1)
+                          latitude<-rep("-33.33632",horas+1)
                           data<-data.frame(date,site,longitude,latitude)
                           p= NULL; auxiliar = NULL
                           for(p in 1:length(Contaminantes))
@@ -2532,12 +2532,12 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         } else
                         {
                           auxiliar = NULL; data = NULL; p= NULL
-                          if(aux == "QUI")
+                          if(aux == "QUi")
                           {
                             ciudad_arana<-"RM/D19"
                             site<-rep(aux,horas+1)
-                            longitude<-rep("6306788",horas+1)
-                            latitude<-rep("337356",horas+1)
+                            longitude<-rep("-70.747952",horas+1)
+                            latitude<-rep("-33.352539",horas+1)
                             data<-data.frame(date,site,longitude,latitude)
                             p= NULL; auxiliar = NULL
                             for(p in 1:length(Contaminantes))
@@ -2787,7 +2787,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   try(
     {
       i = NULL
-      for (i in 1:length(PM10)) 
+      for (i in 1:length(data_total$PM10)) 
       {
         if((data_total$PM25[i])>(data_total$PM10[i]*1.0001)){
           data_total$PM10[i] = ""
