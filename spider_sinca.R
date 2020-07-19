@@ -205,17 +205,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                         , silent = TRUE)
                     } else
                     {
-                      url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                      if(Contaminantes[p]=="Temperatura")
+                      url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                      if(Contaminantes[p]=="temp")
                       {
                         contaminante_arana<-"/Met/TEMP//"
                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                         try(
                           {
-                            temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                            temperatura_col1<-temperatura_bruto$X
-                            Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                            data<-data.frame(data,Temperatura)
+                            temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                            temp_col1<-temp_bruto$X
+                            temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                            data<-data.frame(data,temp)
                             print(paste(auxiliar,aux))
                           }
                           , silent = TRUE)
@@ -430,17 +430,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                           , silent = TRUE)
                       } else
                       {
-                        url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                        if(Contaminantes[p]=="Temperatura")
+                        url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                        if(Contaminantes[p]=="temp")
                         {
                           contaminante_arana<-"/Met/TEMP//"
                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                           try(
                             {
-                              temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                              temperatura_col1<-temperatura_bruto$X
-                              Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                              data<-data.frame(data,Temperatura)
+                              temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                              temp_col1<-temp_bruto$X
+                              temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                              data<-data.frame(data,temp)
                               print(paste(auxiliar,aux))
                             }
                             , silent = TRUE)
@@ -654,17 +654,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                             , silent = TRUE)
                         } else
                         {
-                          url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                          if(Contaminantes[p]=="Temperatura")
+                          url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                          if(Contaminantes[p]=="temp")
                           {
                             contaminante_arana<-"/Met/TEMP//"
                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                             try(
                               {
-                                temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                temperatura_col1<-temperatura_bruto$X
-                                Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                data<-data.frame(data,Temperatura)
+                                temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                temp_col1<-temp_bruto$X
+                                temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                data<-data.frame(data,temp)
                                 print(paste(auxiliar,aux))
                               }
                               , silent = TRUE)
@@ -878,17 +878,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                               , silent = TRUE)
                           } else
                           {
-                            url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                            if(Contaminantes[p]=="Temperatura")
+                            url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                            if(Contaminantes[p]=="temp")
                             {
                               contaminante_arana<-"/Met/TEMP//"
                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                               try(
                                 {
-                                  temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                  temperatura_col1<-temperatura_bruto$X
-                                  Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                  data<-data.frame(data,Temperatura)
+                                  temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                  temp_col1<-temp_bruto$X
+                                  temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                  data<-data.frame(data,temp)
                                   print(paste(auxiliar,aux))
                                 }
                                 , silent = TRUE)
@@ -1102,17 +1102,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                 , silent = TRUE)
                             } else
                             {
-                              url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                              if(Contaminantes[p]=="Temperatura")
+                              url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                              if(Contaminantes[p]=="temp")
                               {
                                 contaminante_arana<-"/Met/TEMP//"
                                 url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                 try(
                                   {
-                                    temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                    temperatura_col1<-temperatura_bruto$X
-                                    Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                    data<-data.frame(data,Temperatura)
+                                    temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                    temp_col1<-temp_bruto$X
+                                    temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                    data<-data.frame(data,temp)
                                     print(paste(auxiliar,aux))
                                   }
                                   , silent = TRUE)
@@ -1326,17 +1326,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                   , silent = TRUE)
                               } else
                               {
-                                url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                if(Contaminantes[p]=="Temperatura")
+                                url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                if(Contaminantes[p]=="temp")
                                 {
                                   contaminante_arana<-"/Met/TEMP//"
                                   url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                   try(
                                     {
-                                      temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                      temperatura_col1<-temperatura_bruto$X
-                                      Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                      data<-data.frame(data,Temperatura)
+                                      temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                      temp_col1<-temp_bruto$X
+                                      temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                      data<-data.frame(data,temp)
                                       print(paste(auxiliar,aux))
                                     }
                                     , silent = TRUE)
@@ -1550,17 +1550,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                     , silent = TRUE)
                                 } else
                                 {
-                                  url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                  if(Contaminantes[p]=="Temperatura")
+                                  url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                  if(Contaminantes[p]=="temp")
                                   {
                                     contaminante_arana<-"/Met/TEMP//"
                                     url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                     try(
                                       {
-                                        temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                        temperatura_col1<-temperatura_bruto$X
-                                        Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                        data<-data.frame(data,Temperatura)
+                                        temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                        temp_col1<-temp_bruto$X
+                                        temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                        data<-data.frame(data,temp)
                                         print(paste(auxiliar,aux))
                                       }
                                       , silent = TRUE)
@@ -1774,17 +1774,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                       , silent = TRUE)
                                   } else
                                   {
-                                    url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                    if(Contaminantes[p]=="Temperatura")
+                                    url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                    if(Contaminantes[p]=="temp")
                                     {
                                       contaminante_arana<-"/Met/TEMP//"
                                       url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                       try(
                                         {
-                                          temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                          temperatura_col1<-temperatura_bruto$X
-                                          Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                          data<-data.frame(data,Temperatura)
+                                          temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                          temp_col1<-temp_bruto$X
+                                          temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                          data<-data.frame(data,temp)
                                           print(paste(auxiliar,aux))
                                         }
                                         , silent = TRUE)
@@ -1998,17 +1998,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                         , silent = TRUE)
                                     } else
                                     {
-                                      url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                      if(Contaminantes[p]=="Temperatura")
+                                      url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                      if(Contaminantes[p]=="temp")
                                       {
                                         contaminante_arana<-"/Met/TEMP//"
                                         url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                         try(
                                           {
-                                            temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                            temperatura_col1<-temperatura_bruto$X
-                                            Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                            data<-data.frame(data,Temperatura)
+                                            temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                            temp_col1<-temp_bruto$X
+                                            temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                            data<-data.frame(data,temp)
                                             print(paste(auxiliar,aux))
                                           }
                                           , silent = TRUE)
@@ -2222,17 +2222,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                           , silent = TRUE)
                                       } else
                                       {
-                                        url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                        if(Contaminantes[p]=="Temperatura")
+                                        url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                        if(Contaminantes[p]=="temp")
                                         {
                                           contaminante_arana<-"/Met/TEMP//"
                                           url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                           try(
                                             {
-                                              temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                              temperatura_col1<-temperatura_bruto$X
-                                              Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                              data<-data.frame(data,Temperatura)
+                                              temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                              temp_col1<-temp_bruto$X
+                                              temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                              data<-data.frame(data,temp)
                                               print(paste(auxiliar,aux))
                                             }
                                             , silent = TRUE)
@@ -2446,17 +2446,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                             , silent = TRUE)
                                         } else
                                         {
-                                          url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                          if(Contaminantes[p]=="Temperatura")
+                                          url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                          if(Contaminantes[p]=="temp")
                                           {
                                             contaminante_arana<-"/Met/TEMP//"
                                             url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                             try(
                                               {
-                                                temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                temperatura_col1<-temperatura_bruto$X
-                                                Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                                data<-data.frame(data,Temperatura)
+                                                temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                temp_col1<-temp_bruto$X
+                                                temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                                data<-data.frame(data,temp)
                                                 print(paste(auxiliar,aux))
                                               }
                                               , silent = TRUE)
@@ -2670,17 +2670,17 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
                                               , silent = TRUE)
                                           } else
                                           {
-                                            url = NULL; contaminante_arana= NULL; temperatura_bruto =NULL;temperatura_col1 = NULL; temperatura = NULL
-                                            if(Contaminantes[p]=="Temperatura")
+                                            url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
+                                            if(Contaminantes[p]=="temp")
                                             {
                                               contaminante_arana<-"/Met/TEMP//"
                                               url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",ciudad_arana,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
                                               try(
                                                 {
-                                                  temperatura_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
-                                                  temperatura_col1<-temperatura_bruto$X
-                                                  Temperatura<-gsub("NA","",gsub(" ", "",temperatura_col1))
-                                                  data<-data.frame(data,Temperatura)
+                                                  temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
+                                                  temp_col1<-temp_bruto$X
+                                                  temp<-gsub("NA","",gsub(" ", "",temp_col1))
+                                                  data<-data.frame(data,temp)
                                                   print(paste(auxiliar,aux))
                                                 }
                                                 , silent = TRUE)
@@ -2782,7 +2782,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       }
       print("Datos NOX Validados!")
     }
-  , silent = T)
+    , silent = T)
   try(
     {
       i =NULL
@@ -2794,6 +2794,33 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
         }
       }
       print("Datos PM Validados!")
+    }
+    
+    , silent = T)
+  try(
+    {
+      i =NULL
+      for (i in 1:length(data_total$wd)) 
+      {
+        if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) <0){
+          data_total$wd[i] = ""
+        }
+      }
+      print("Datos wd Validados!")
+    }
+    
+    , silent = T)
+  
+  try(
+    {
+      i =NULL
+      for (i in 1:length(data_total$HR)) 
+      {
+        if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
+          data_total$HR[i] = ""
+        }
+      }
+      print("Datos HR Validados!")
     }
     
     , silent = T)
