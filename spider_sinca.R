@@ -2788,7 +2788,7 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
       i =NULL
       for (i in 1:length(data_total$PM10)) 
       {
-        if(as.numeric(data_total$PM25[i]) > as.numericdata_total$PM10[i])*1.0001){
+        if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.0001){
           data_total$PM10[i] = ""
           data_total$PM25[i] = ""
         }
