@@ -2771,14 +2771,13 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   }
   try(
     {
-      i = NULL
-      for (i in 1:length(data_total$NO)) 
+      i =NULL
+      for (i in 1:length(data_total$NOX)) 
       {
-        if((data_total$NO[i]+data_total$NO2[i])>(data_total$NOX[i]*1.0001)){
+        if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i])) > as.numeric(data_total$NOX[i])*1.0001){
           data_total$NO[i] = ""
           data_total$NO2[i] = ""
           data_total$NOX[i] = ""
-          
         }
       }
       print("Datos NOX Validados!")
@@ -2786,13 +2785,12 @@ spider_sinca<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_t
   , silent = T)
   try(
     {
-      i = NULL
+      i =NULL
       for (i in 1:length(data_total$PM10)) 
       {
-        if((data_total$PM25[i])>(data_total$PM10[i]*1.0001)){
+        if(as.numeric(data_total$PM25[i]) > as.numericdata_total$PM10[i])*1.0001){
           data_total$PM10[i] = ""
           data_total$PM25[i] = ""
-          
         }
       }
       print("Datos PM Validados!")
