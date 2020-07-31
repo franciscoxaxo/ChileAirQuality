@@ -284,61 +284,68 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
     
     
   }
-  try(
+  
+  try({
+    i =NULL
+    for (i in 1:(horas+1)) 
     {
-      i =NULL
-      for (i in 1:length(data_total$NOX)) 
-      {
-        if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i])) > as.numeric(data_total$NOX[i])*1.0001){
-          data_total$NO[i] = ""
-          data_total$NO2[i] = ""
-          data_total$NOX[i] = ""
+      try(
+        {
+          if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i]))>as.numeric(data_total$NOX[i])*1.0001){
+            data_total$NO[i] = ""
+            data_total$NO2[i] = ""
+            data_total$NOX[i] = ""
+            
+          }
         }
-      }
-      print("Datos NOX Validados!")
+        , silent = T)
     }
-    , silent = T)
-  try(
+  }, silent = T)
+  
+  try({
+    i =NULL
+    for (i in 1:length(data_total$PM10)) 
     {
-      i =NULL
-      for (i in 1:length(data_total$PM10)) 
-      {
-        if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.0001){
-          data_total$PM10[i] = ""
-          data_total$PM25[i] = ""
-        }
-      }
-      print("Datos PM Validados!")
+      try(
+        {
+          if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.0001){
+            data_total$PM10[i] = ""
+            data_total$PM25[i] = ""
+          }
+        }  
+        ,silent = T)
     }
-    
-    , silent = T)
-  try(
+  }, silent = T)
+  
+  try({
+    i =NULL
+    for (i in 1:length(data_total$wd)) 
     {
-      i =NULL
-      for (i in 1:length(data_total$wd)) 
-      {
+      try({
         if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) <0){
           data_total$wd[i] = ""
         }
-      }
-      print("Datos wd Validados!")
+      }, silent = T)
     }
     
-    , silent = T)
+  }, silent = T)
   
-  try(
+  try({
+    i =NULL
+    for (i in 1:length(data_total$HR)) 
     {
-      i =NULL
-      for (i in 1:length(data_total$HR)) 
-      {
-        if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
-          data_total$HR[i] = ""
-        }
-      }
-      print("Datos HR Validados!")
+      try(
+        {
+          if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
+            data_total$HR[i] = ""
+          }
+          
+        }, silent = T)
     }
     
-    , silent = T)
+  }, silent = T)
+  
+  
   k= NULL
   for(k in 3:ncol(data_total)){
     data_total[[k]]<-as.numeric(data_total[[k]])
