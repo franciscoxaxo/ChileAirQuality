@@ -298,7 +298,7 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
     {
       try(
         {
-          if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i]))>as.numeric(data_total$NOX[i])*1.0001){
+          if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i]))>as.numeric(data_total$NOX[i])*1.001){
             data_total$NO[i] = ""
             data_total$NO2[i] = ""
             data_total$NOX[i] = ""
@@ -315,7 +315,7 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
     {
       try(
         {
-          if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.0001){
+          if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.001){
             data_total$PM10[i] = ""
             data_total$PM25[i] = ""
           }
