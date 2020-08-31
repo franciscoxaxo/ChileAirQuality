@@ -1,7 +1,7 @@
 library(DT)
 library(shiny)
 library(openair)
-source("https://raw.githubusercontent.com/franciscoxaxo/SINCAspider/master/ChileAirQuality.R")
+source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/ChileAirQuality.R")
 
 
 shinyServer(function(input, output) {
@@ -17,12 +17,22 @@ shinyServer(function(input, output) {
         if(input$Select == "calendarPlot"){
             radioButtons(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes)
         }else if(input$Select == "scatterPlot"){
-            radioButtons(inputId = "x", label = "Contaminantes", choices = input$Contaminantes)
-            radioButtons(inputId = "y", label = "Contaminantes", choices = input$Contaminantes)
+            flowLayout(
+                splitLayout(radioButtons(inputId = "x", label = "Contaminantes", choices = input$Contaminantes),
+                            radioButtons(inputId = "y", label = "Contaminantes", choices = input$Contaminantes)
+            )
+            #splitLayout(checkboxInput("logx","log(x)"),
+             #           checkboxInput("logy","log(y)"),
+              #          checkboxInput("lineal","Lineal")
+               #         )
             
+        )
         
-    }else{
-            checkboxGroupInput(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes, selected = input$Contaminantes)
+    }else{flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                     checkboxGroupInput(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes, selected = input$Contaminantes)
+        
+    )
+        
         }
     })
 
@@ -60,7 +70,8 @@ shinyServer(function(input, output) {
             {
                 calendarPlot(data_total(), pollutant = input$choices, type = "site")
             }else if(input$Select=="scatterPlot"){
-                scatterPlot(x = input$x, y= input$y)
+                scatterPlot(data_total(), x = input$x, y= input$y
+                            )
             }
         }else{
             if(input$Select=="timeVariation")
@@ -79,7 +90,8 @@ shinyServer(function(input, output) {
             {
                 calendarPlot(data_total(), pollutant = input$choices)
             }else if(input$Select=="scatterPlot"){
-                scatterPlot(x = input$x, y= input$y)
+                scatterPlot(data_total(), x = input$x, y= input$y
+                            )
             }
         }
     })

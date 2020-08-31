@@ -1,12 +1,13 @@
 library(DT)
 library(shiny)
 library(openair)
-library(rmarkdown)
-source("https://raw.githubusercontent.com/franciscoxaxo/SINCAspider/master/ChileAirQuality.R")
+source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/ChileAirQuality.R")
 
-
-shinyUI(fluidPage(tabsetPanel(
-    tabPanel("Capturar Datos",
+shinyUI(
+    
+    fluidPage(
+        tags$head(HTML("<title>ChileAirQuality Lab</title>")),
+        tabsetPanel(tabPanel("Capturar Datos",
              {
                  titlePanel("Captura de Datos")
                  sidebarLayout(
@@ -25,25 +26,34 @@ shinyUI(fluidPage(tabsetPanel(
                                    format= "dd/mm/yyyy"),
                          splitLayout(checkboxGroupInput("F_Climaticos",
                                                         label ="F. Climaticos",
-                                                        choices =c("temp", "HR", "wd","ws")),
+                                                        choices =c("temp", "HR", "wd","ws"), 
+                                                        selected = c("temp", "HR", "wd","ws")
+                                                        ),
                                      checkboxGroupInput("Contaminantes",
                                                         label ="Contaminantes",
-                                                        choices =c( "PM10", "PM25", "NO","NO2","NOX","O3","CO"))
+                                                        choices =c( "PM10", "PM25", "NO","NO2","NOX","O3","CO")
+                                                        )
                          ),
                          splitLayout(checkboxGroupInput("Comunas1",
                                                         label ="Estaciones",
-                                                        choices =c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia")),
+                                                        choices =c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia")
+                                                        ),
                                      checkboxGroupInput("Comunas2",
                                                         label ="",
-                                                        choices =c("Las Condes","La Florida","Pudahuel","Puente Alto","Quilicura","Quilicura 1"))),
+                                                        choices =c("Las Condes","La Florida","Pudahuel","Puente Alto","Quilicura","Quilicura 1")
+                                                        )
+                                     ),
         
-                         submitButton("Aplicar Cambios")
+                         submitButton("Aplicar Cambios"),
+                         actionLink("sinca", "sinca.mma.gob.cl")
                      ),
 
                      mainPanel(
                          
                          dataTableOutput("table"),
-                         downloadButton("descargar", label ="Descargar"),
+                         downloadButton("descargar",
+                                        label ="Descargar"
+                                        ),
                          
                          tags$style(type="text/css",
                                     ".shiny-output-error { visibility: hidden; }",
@@ -58,8 +68,8 @@ shinyUI(fluidPage(tabsetPanel(
                  sidebarLayout(
                      sidebarPanel(
                          selectInput("Select","Tipo de Grafico",
-                                     choices = c("timeVariation","corPlot","timePlot", "calendarPlot","polarPlot")),
-                         checkboxInput("checkSites","Desagrupar por Ciudad"),
+                                     choices = c("timeVariation","corPlot","timePlot", "calendarPlot","polarPlot","scatterPlot")
+                                     ),
                          uiOutput("moreControls"),
                          submitButton("Aplicar Cambios")
                      ),
@@ -77,7 +87,8 @@ shinyUI(fluidPage(tabsetPanel(
     ),
     tabPanel("Estaciones",
              {
-                 flowLayout(dataTableOutput("info"))
+                 flowLayout(dataTableOutput("info")
+                            )
              }
     )
 )))
