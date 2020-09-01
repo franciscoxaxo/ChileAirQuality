@@ -7,15 +7,48 @@ source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/m
 shinyServer(function(input, output) {
     
     
+    #Funcion de data, pilar del trabajo
+    
     data_total<-reactive(ChileAirQuality(Comunas = c(c(input$Comunas1, input$Comunas2)), Contaminantes = c(input$Contaminantes, input$F_Climaticos), input_fecha_inicio = as.character(input$Fecha_inicio, format("%d/%m/%Y")), input_fecha_termino = as.character(input$Fecha_Termino, format("%d/%m/%Y"))))
     
-    output$info <- DT::renderDataTable(
-        DT::datatable({ChileAirQuality(Comunas ="INFO", Contaminantes = "PM10",input_fecha_inicio = "01/01/2020", input_fecha_termino = "01/01/2020")}
-                      ))
+    #Tabla de comunas
     
+    output$info <- renderTable(
+        {ChileAirQuality(Comunas ="INFO", Contaminantes = "PM10",input_fecha_inicio = "01/01/2020", input_fecha_termino = "01/01/2020")}
+    )
+    
+    #Tabla de variables: Contaminantes y factores meteorologicos
+    
+    Variable<-isolate(c("PM10", "PM25","NOX","NO","NO2","O3", "CO", "temp", "ws", "wd", "HR"))
+    Nombre<-isolate(c("Material Particulado Respirable menor a 10 micras",
+                      "Material Particulado Respirable menor a 2,5 micras",
+                      "Oxido de Nitrogeno",
+                      "Monoxido de Nitrogeno",
+                      "Dioxido de Nitrogeno",
+                      "Ozono troposferico",
+                      "Monoxido de carbono",
+                      "Temperatura",
+                      "Velocidad del Viento",
+                      "Direccion del viento",
+                      "Humedad Relativa"
+                      
+    ))
+    
+    Unidades<-isolate(c("ug/m3N","ug/m3N","ppb","ppb","ppb","ppb","ppb","C","m/s","","%"))
+    
+    
+    output$info_2 <- renderTable({
+        data.frame(Variable, Nombre, Unidades)
+        
+    })
+    
+    #Controles Reactivos#
     output$moreControls <- renderUI({
         if(input$Select == "calendarPlot"){
-            radioButtons(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes)
+            flowLayout(
+                #sliderInput(inputId = "year",min = substr(as.character(as.character(input$Fecha_inicio), 7, 10)), max = substr(as.character(as.character(input$Fecha_Termino), 7, 10))),
+                radioButtons(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes)
+            )
         }else if(input$Select == "scatterPlot"){
             flowLayout(
                 splitLayout(radioButtons(inputId = "x", label = "Contaminantes", choices = input$Contaminantes),
@@ -35,6 +68,8 @@ shinyServer(function(input, output) {
         
         }
     })
+    
+    #Tabla de exposicion de datos
 
     output$table <- DT::renderDataTable(
         DT::datatable({data_total()},
@@ -43,6 +78,7 @@ shinyServer(function(input, output) {
         style = 'bootstrap'
         )
     )
+    #Boton de descarga
     output$descargar<-downloadHandler(
         filename = "data.csv",
         content = function(file){
@@ -50,7 +86,7 @@ shinyServer(function(input, output) {
         }
     )
 
-    
+    #Funciones de graficos#
     
     output$grafico<-renderPlot({
         if(input$checkSites){

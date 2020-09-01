@@ -15,13 +15,13 @@ shinyUI(
                          dateInput("Fecha_inicio",
                                    label ="Fecha de inicio",
                                    value = Sys.Date()-1,
-                                   min = "2015-01-01",
+                                   min = "2005-01-01",
                                    max= Sys.Date(),
                                    format= "dd/mm/yyyy"),
                          dateInput("Fecha_Termino",
                                    label ="Fecha de Termino",
                                    value = Sys.Date()-1,
-                                   min = ("2010-01-01"),
+                                   min = ("2005-01-01"),
                                    max= Sys.Date(),
                                    format= "dd/mm/yyyy"),
                          splitLayout(checkboxGroupInput("F_Climaticos",
@@ -87,8 +87,15 @@ shinyUI(
     ),
     tabPanel("Estaciones",
              {
-                 flowLayout(dataTableOutput("info")
+                 flowLayout(tableOutput("info")
                             )
+             }
+    ),
+    tabPanel("Variables",
+             {
+                 verticalLayout(tableOutput("info_2"),
+                            actionLink("sinca", "sinca.mma.gob.cl")
+                 )
              }
     )
 )))
