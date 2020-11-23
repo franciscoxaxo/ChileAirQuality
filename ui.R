@@ -6,7 +6,7 @@ source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/m
 shinyUI(
     
     fluidPage(
-        tags$head(HTML("<title>ChileAirQuality Lab</title>")),
+        tags$head(HTML("<title>ChileAirQuality Proyect</title>")),
         tabsetPanel(tabPanel("Capturar Datos",
              {
                  titlePanel("Captura de Datos")
@@ -44,8 +44,8 @@ shinyUI(
                                                         )
                                      ),
         
-                         submitButton("Aplicar Cambios"),
-                         actionLink("sinca", "sinca.mma.gob.cl")
+                         submitButton("Aplicar Cambios")
+                         
                      ),
 
                      mainPanel(
@@ -68,13 +68,16 @@ shinyUI(
                  sidebarLayout(
                      sidebarPanel(
                          selectInput("Select","Tipo de Grafico",
-                                     choices = c("timeVariation","corPlot","timePlot", "calendarPlot","polarPlot","scatterPlot")
+                                     choices = c("--Seleccionar--","timeVariation","corPlot","timePlot", "calendarPlot","polarPlot","scatterPlot")
                                      ),
                          uiOutput("moreControls"),
                          submitButton("Aplicar Cambios")
                      ),
                      mainPanel(
-                         plotOutput("grafico"),
+                         verticalLayout(
+                             plotOutput("grafico"),
+                             uiOutput("text")
+                         ),
                          
                          tags$style(type="text/css",
                                     ".shiny-output-error { visibility: hidden; }",
@@ -94,7 +97,7 @@ shinyUI(
     tabPanel("Variables",
              {
                  verticalLayout(tableOutput("info_2"),
-                            actionLink("sinca", "sinca.mma.gob.cl")
+                                actionLink("sinca", "sinca.mma.gob.cl")
                  )
              }
     )
