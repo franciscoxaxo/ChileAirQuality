@@ -40,7 +40,7 @@ shinyUI(
                                                         ),
                                      checkboxGroupInput("Comunas2",
                                                         label ="",
-                                                        choices =c("Las Condes","La Florida","Pudahuel","Puente Alto","Quilicura","Quilicura 1", "Coyahique I", "Coyahique II")
+                                                        choices =c("Las Condes","La Florida","Pudahuel","Puente Alto","Quilicura","Quilicura 1", "Coyhaique I", "Coyhaique II")
                                                         )
                                      ),
         
