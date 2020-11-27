@@ -6,7 +6,7 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
   longitude_city<-c("-70.6604476","-70.719064","-70.703947","-70.731790","-70.665906","-70.650886",
                     "-70.587916","-70.523024","-70.749876","-70.594184","-70.723583","-70.747952", "", "")
   nombre_city<-c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia","La Florida",
-                 "Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Coyahique I", "Coyahique II")
+                 "Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Coyhaique I", "Coyhaique II")
   city_table<-data.frame(city,code_city,latitude_city,longitude_city, nombre_city)
   
   fi<-paste(input_fecha_inicio,"1:00")
