@@ -2,9 +2,9 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
   city<-c("SA", "CE1", "CE", "CN","EB", "IN","LF","LC","PU","PA","QU","QU1", "COI", "COII")
   code_city<-c("RM/D14","RM/D16","RM/D31","RM/D18","RM/D17","RM/D11","RM/D12","RM/D13","RM/D15","RM/D27","RM/D30","RM/D19", "RXI/B03", "RXI/B04")
   latitude_city<-c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.408920",
-                   "-33.503288","-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","", "")
+                   "-33.503288","-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","-45.57993636", "-45.57904645")
   longitude_city<-c("-70.6604476","-70.719064","-70.703947","-70.731790","-70.665906","-70.650886",
-                    "-70.587916","-70.523024","-70.749876","-70.594184","-70.723583","-70.747952", "", "")
+                    "-70.587916","-70.523024","-70.749876","-70.594184","-70.723583","-70.747952", "-72.06108480", "-72.04996681")
   nombre_city<-c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia","La Florida",
                  "Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Coyhaique I", "Coyhaique II")
   city_table<-data.frame(city,code_city,latitude_city,longitude_city, nombre_city)
