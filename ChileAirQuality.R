@@ -1,20 +1,23 @@
-ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fecha_termino){
-  city<-c("SA", "CE1", "CE", "CN","EB", "IN","LF","LC","PU","PA","QU","QU1", "COI", "COII")
-  code_city<-c("RM/D14","RM/D16","RM/D31","RM/D18","RM/D17","RM/D11","RM/D12","RM/D13","RM/D15","RM/D27","RM/D30","RM/D19", "RXI/B03", "RXI/B04")
-  latitude_city<-c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.408920",
+ChileAirQuality<-function(Comunas = "INFO", Contaminantes = "PM10", input_fecha_inicio = "01/01/2020",
+                          input_fecha_termino = "21/12/2020", val = TRUE, site = FALSE){
+  
+  #Matriz de datos
+  cod<-c("SA", "CE1", "CE", "CN","EB", "IN","LF","LC","PU","PA","QU","QU1", "COI", "COII")
+  codeSINCA<-c("RM/D14","RM/D16","RM/D31","RM/D18","RM/D17","RM/D11","RM/D12","RM/D13","RM/D15","RM/D27","RM/D30","RM/D19", "RXI/B03", "RXI/B04")
+  Latitud<-c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.408920",
                    "-33.503288","-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","-45.57993636", "-45.57904645")
-  longitude_city<-c("-70.6604476","-70.719064","-70.703947","-70.731790","-70.665906","-70.650886",
+  Longitud<-c("-70.6604476","-70.719064","-70.703947","-70.731790","-70.665906","-70.650886",
                     "-70.587916","-70.523024","-70.749876","-70.594184","-70.723583","-70.747952", "-72.06108480", "-72.04996681")
-  nombre_city<-c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia","La Florida",
+  Estacion<-c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia","La Florida",
                  "Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Coyhaique I", "Coyhaique II")
-  city_table<-data.frame(city,code_city,latitude_city,longitude_city, nombre_city)
+  city_table<-data.frame(cod,codeSINCA,Latitud,Longitud, Estacion)
   
   fi<-paste(input_fecha_inicio,"1:00")
   ft<-paste(input_fecha_termino,"23:00")
   Fecha_inicio<- as.POSIXct(strptime(fi, format = "%d/%m/%Y %H:%M"))
   Fecha_termino<- as.POSIXct(strptime(ft, format = "%d/%m/%Y %H:%M"))
   
-  #Fechas para ara?a#
+  #Fechas para arana#
   Fecha_inicio_para_arana<-as.character(Fecha_inicio, format("%y%m%d"))
   Hora_inicio_para_arana<- as.character(Fecha_inicio, format( "%H%M")) 
   Fecha_termino_para_arana<- as.character(Fecha_termino, format("%y%m%d"))
@@ -22,9 +25,11 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
   id_fecha<-gsub(" ","",paste("from=",Fecha_inicio_para_arana,"&to=",Fecha_termino_para_arana))
   horas<-(as.numeric(Fecha_termino)/3600-as.numeric(Fecha_inicio)/3600) #horas entre fecha y fecha
   
-  #Data frame vacio#
+  #URLs
+  sinca<-"https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./"
+  url_sinca3<-"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="
   
-  
+ 
   date= NULL; n =NULL
   for(n in 0:horas) 
   {
@@ -41,11 +46,16 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
     try({
       aux_1<-Comunas[i]
       for(j in 1:length(city)){
-        aux_2<-city_table[j,1]
-        aux_3<-city_table[j,2]
-        aux_4<-city_table[j,3]
-        aux_5<-city_table[j,4]
-        aux_6<-city_table[j,5]
+        aux_2<-city_table[j,1] #Site
+        aux_3<-city_table[j,2] # code_city
+        aux_4<-city_table[j,3] #Latitud
+        aux_5<-city_table[j,4] # Longitud
+        aux_7<-city_table[j,5] #Estacion de Monitoreo
+        if(site){
+          aux_6 = aux_2
+        }else{
+          aux_6 = aux_7
+        }
         if(aux_1==aux_6){
           try({
             
@@ -61,8 +71,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                 url = NULL; contaminante_arana= NULL; PM10_Bruto =NULL;PM10_col1 = NULL; PM10_col2 = NULL; PM10_col3 = NULL; PM10 = NULL
                 if(auxiliar=="PM10")
                 {
-                  contaminante_arana<-"/Cal/PM10//PM10"
-                  url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                  contaminante_arana<-"/Cal/PM10//PM10.horario.horario.ic&"
+                  url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                   try(
                     {
                       PM10_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -81,8 +91,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                   url = NULL; contaminante_arana= NULL; PM25_Bruto =NULL;PM25_col1 = NULL; PM25_col2 = NULL; PM25_col3 = NULL; PM25 = NULL
                   if(Contaminantes[p]=="PM25")
                   {
-                    contaminante_arana<-"/Cal/PM25//PM25"
-                    url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                    contaminante_arana<-"/Cal/PM25//PM25.horario.horario.ic&"
+                    url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                     try(
                       {
                         PM25_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -100,8 +110,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                     url = NULL; contaminante_arana= NULL; O3_Bruto =NULL;O3_col1 = NULL; O3_col2 = NULL; O3_col3 = NULL; O3 = NULL
                     if(Contaminantes[p]=="O3")
                     {
-                      contaminante_arana<-"/Cal/0008//0008"
-                      url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                      contaminante_arana<-"/Cal/0008//0008.horario.horario.ic&"
+                      url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                       try(
                         {
                           O3_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -119,8 +129,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                       url = NULL; contaminante_arana= NULL; CO_Bruto =NULL;CO_col1 = NULL; CO_col2 = NULL; CO_col3 = NULL; CO = NULL
                       if(Contaminantes[p]=="CO")
                       {
-                        contaminante_arana<-"/Cal/0004//0004"
-                        url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                        contaminante_arana<-"/Cal/0004//0004.horario.horario.ic&"
+                        url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                         try(
                           {
                             CO_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -138,8 +148,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                         url = NULL; contaminante_arana= NULL; NO_Bruto =NULL;NO_col1 = NULL; NO_col2 = NULL; NO_col3 = NULL; NO = NULL
                         if(Contaminantes[p]=="NO")
                         {
-                          contaminante_arana<-"/Cal/0002//0002"
-                          url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                          contaminante_arana<-"/Cal/0002//0002.horario.horario.ic&"
+                          url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                           try(
                             {
                               NO_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -157,8 +167,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                           url = NULL; contaminante_arana= NULL; NO2_Bruto =NULL;NO2_col1 = NULL; NO2_col2 = NULL; NO2_col3 = NULL; NO2 = NULL
                           if(Contaminantes[p]=="NO2")
                           {
-                            contaminante_arana<-"/Cal/0003//0003"
-                            url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                            contaminante_arana<-"/Cal/0003//0003.horario.horario.ic&"
+                            url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                             try(
                               {
                                 NO2_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -176,8 +186,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                             url = NULL; contaminante_arana= NULL; NOX_Bruto =NULL;NOX_col1 = NULL; NOX_col2 = NULL; NOX_col3 = NULL; NOX = NULL
                             if(Contaminantes[p]=="NOX")
                             {
-                              contaminante_arana<-"/Cal/0NOX//0NOX"
-                              url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,".horario.horario.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                              contaminante_arana<-"/Cal/0NOX//0NOX.horario.horario.ic&"
+                              url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                               try(
                                 {
                                   NOX_Bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -195,8 +205,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                               url = NULL; contaminante_arana= NULL; temp_bruto =NULL;temp_col1 = NULL; temp = NULL
                               if(Contaminantes[p]=="temp")
                               {
-                                contaminante_arana<-"/Met/TEMP//"
-                                url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                                contaminante_arana<-"/Met/TEMP//horario_000.ic&"
+                                url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                                 try(
                                   {
                                     temp_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -212,8 +222,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                                 url = NULL; contaminante_arana= NULL; HR_bruto =NULL;HR_col1 = NULL; HR = NULL
                                 if(Contaminantes[p]=="HR")
                                 {
-                                  contaminante_arana<-"/Met/RHUM//"
-                                  url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                                  contaminante_arana<-"/Met/RHUM//horario_000.ic&"
+                                  url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                                   try(
                                     {
                                       HR_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -229,8 +239,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                                   url = NULL; contaminante_arana= NULL; wd_bruto =NULL;wd_col1 = NULL; wd = NULL
                                   if(Contaminantes[p]=="wd")
                                   {
-                                    contaminante_arana<-"/Met/WDIR//"
-                                    url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,"horario_000_spec.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                                    contaminante_arana<-"/Met/WDIR//horario_000_spec.ic&"
+                                    url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                                     try(
                                       {
                                         wd_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -246,8 +256,8 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
                                     url = NULL; contaminante_arana= NULL; ws_bruto =NULL;ws_col1 = NULL; ws = NULL
                                     if(Contaminantes[p]=="ws")
                                     {
-                                      contaminante_arana<-"/Met/WSPD//"
-                                      url<-gsub(" ", "",paste("https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./",aux_3,contaminante_arana,"horario_000.ic&",id_fecha,"&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath="))
+                                      contaminante_arana<-"/Met/WSPD//horario_000.ic&"
+                                      url<-gsub(" ", "",paste(sinca,aux_3,contaminante_arana,id_fecha,url_sinca3))
                                       try(
                                         {
                                           ws_bruto<-read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -293,66 +303,67 @@ ChileAirQuality<-function(Comunas, Contaminantes, input_fecha_inicio, input_fech
     }, silent = T)
   }
   
-  try({
-    i =NULL
-    for (i in 1:(horas+1)) 
-    {
-      try(
-        {
-          if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i]))>as.numeric(data_total$NOX[i])*1.001){
-            data_total$NO[i] = ""
-            data_total$NO2[i] = ""
-            data_total$NOX[i] = ""
-            
+  if(val){
+    try({
+      i =NULL
+      for (i in 1:(horas+1)) 
+      {
+        try(
+          {
+            if((as.numeric(data_total$NO[i])+as.numeric(data_total$NO2[i]))>as.numeric(data_total$NOX[i])*1.001){
+              data_total$NO[i] = ""
+              data_total$NO2[i] = ""
+              data_total$NOX[i] = ""
+              
+            }
           }
-        }
-        , silent = T)
-    }
-  }, silent = T)
-  
-  try({
-    i =NULL
-    for (i in 1:length(data_total$PM10)) 
-    {
-      try(
-        {
-          if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.001){
-            data_total$PM10[i] = ""
-            data_total$PM25[i] = ""
-          }
-        }  
-        ,silent = T)
-    }
-  }, silent = T)
-  
-  try({
-    i =NULL
-    for (i in 1:length(data_total$wd)) 
-    {
-      try({
-        if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) <0){
-          data_total$wd[i] = ""
-        }
-      }, silent = T)
-    }
+          , silent = T)
+      }
+    }, silent = T)
     
-  }, silent = T)
-  
-  try({
-    i =NULL
-    for (i in 1:length(data_total$HR)) 
-    {
-      try(
-        {
-          if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
-            data_total$HR[i] = ""
+    try({
+      i =NULL
+      for (i in 1:length(data_total$PM10)) 
+      {
+        try(
+          {
+            if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.001){
+              data_total$PM10[i] = ""
+              data_total$PM25[i] = ""
+            }
+          }  
+          ,silent = T)
+      }
+    }, silent = T)
+    
+    try({
+      i =NULL
+      for (i in 1:length(data_total$wd)) 
+      {
+        try({
+          if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) <0){
+            data_total$wd[i] = ""
           }
-          
         }, silent = T)
-    }
+      }
+      
+    }, silent = T)
     
-  }, silent = T)
-  
+    try({
+      i =NULL
+      for (i in 1:length(data_total$HR)) 
+      {
+        try(
+          {
+            if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
+              data_total$HR[i] = ""
+            }
+            
+          }, silent = T)
+      }
+      
+    }, silent = T)
+  }
   
   k= NULL
   for(k in 3:ncol(data_total)){
