@@ -1,5 +1,5 @@
 ChileAirQuality<-function(Comunas = "INFO", Contaminantes = "PM10", input_fecha_inicio = "01/01/2020",
-                          input_fecha_termino = "21/12/2020", val = TRUE, site = FALSE){
+                          input_fecha_termino = "21/12/2020", val = TRUE, Site = FALSE){
   
   #Matriz de datos
   cod<-c("SA", "CE1", "CE", "CN","EB", "IN","LF","LC","PU","PA","QU","QU1", "COI", "COII")
@@ -51,7 +51,7 @@ ChileAirQuality<-function(Comunas = "INFO", Contaminantes = "PM10", input_fecha_
         aux_4<-city_table[j,3] #Latitud
         aux_5<-city_table[j,4] # Longitud
         aux_7<-city_table[j,5] #Estacion de Monitoreo
-        if(site){
+        if(Site){
           aux_6 = aux_2
         }else{
           aux_6 = aux_7
