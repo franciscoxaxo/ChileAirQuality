@@ -2,6 +2,9 @@ library(DT)
 library(shiny)
 library(openair)
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/ChileAirQuality.R")
+source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/siteplot.R")
+
+
 
 shinyUI(
     
@@ -34,16 +37,22 @@ shinyUI(
                                                         ),
                                      checkboxGroupInput("Contaminantes",
                                                         label ="Contaminantes",
-                                                        choices =c( "PM10", "PM25", "NO","NO2","NOX","O3","CO")
+                                                        choices =c( "PM10", "PM25", "NO","NO2",
+                                                                    "NOX","O3","CO")
                                                         )
                          ),
                          splitLayout(checkboxGroupInput("Comunas1",
                                                         label ="Estaciones",
-                                                        choices =c("P. O'Higgins","Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque","Independecia")
+                                                        choices =c("P. O'Higgins","Cerrillos 1",
+                                                                   "Cerrillos", "Cerro Navia",
+                                                                   "El Bosque","Independecia")
                                                         ),
                                      checkboxGroupInput("Comunas2",
                                                         label ="",
-                                                        choices =c("Las Condes","La Florida","Pudahuel","Puente Alto","Quilicura","Quilicura 1", "Coyhaique I", "Coyhaique II")
+                                                        choices =c("Las Condes","La Florida",
+                                                                   "Pudahuel","Puente Alto","Quilicura",
+                                                                   "Quilicura 1", "Coyhaique I",
+                                                                   "Coyhaique II")
                                                         )
                                      ),
         
@@ -71,7 +80,9 @@ shinyUI(
                  sidebarLayout(
                      sidebarPanel(
                          selectInput("Select","Tipo de Grafico",
-                                     choices = c("--Seleccionar--","timeVariation","corPlot","timePlot", "calendarPlot","polarPlot","scatterPlot")
+                                     choices = c("--Seleccionar--","timeVariation",
+                                                 "corPlot","timePlot", "calendarPlot",
+                                                 "polarPlot","scatterPlot")
                                      ),
                          uiOutput("moreControls"),
                          submitButton("Aplicar Cambios")
@@ -93,7 +104,10 @@ shinyUI(
     ),
     tabPanel("Estaciones",
              {
-                 flowLayout(tableOutput("info")
+                 flowLayout(plotlyOutput("sitemap",
+                                         width = "800px",
+                                         height = "800px"
+                                         )
                             )
              }
     ),
