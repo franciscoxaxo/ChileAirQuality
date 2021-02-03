@@ -7,7 +7,7 @@ siteplot<-function(data){
                lat = data$Latitud,
                lon = data$Longitud,
                marker = list(color = "fuchsia"),
-               hovertext = data$Estacion, 
+               hovertext = paste(data$Estacion,"(", data$Ciudad,")"), 
                type = 'scattermapbox'
   )
   fig<-fig %>%
