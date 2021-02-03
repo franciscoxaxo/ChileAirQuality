@@ -1,8 +1,10 @@
 library(DT)
 library(shiny)
 library(openair)
+library(dplyr)
+library(plotly)
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/ChileAirQuality.R")
-
+source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/siteplot.R")
 
 shinyServer(function(input, output) {
     
@@ -11,11 +13,28 @@ shinyServer(function(input, output) {
     
     data_total<-reactive(ChileAirQuality(Comunas = c(c(input$Comunas1, input$Comunas2)),
                                          Contaminantes = c(input$Contaminantes, input$F_Climaticos),
-                                         input_fecha_inicio = as.character(input$Fecha_inicio, format("%d/%m/%Y")),
-                                         input_fecha_termino = as.character(input$Fecha_Termino, format("%d/%m/%Y")),
-                                         val = input$validacion
+                                         fechadeInicio = as.character(
+                                             input$Fecha_inicio,
+                                             format("%d/%m/%Y")
+                                             ),
+                                         fechadeTermino = as.character(
+                                             input$Fecha_Termino,
+                                             format("%d/%m/%Y")
+                                             ),
+                                         Curar = input$validacion
                                          ))
-
+    
+    
+    site<-reactive(ChileAirQuality())
+    
+    output$sitemap<-renderPlotly({
+        siteplot(
+            site()
+        )
+    })
+        
+        
+        
     #Controles Reactivos#
     output$moreControls <- renderUI({
         if(input$Select == "calendarPlot"){
@@ -70,8 +89,6 @@ shinyServer(function(input, output) {
             write.csv(data_total(), file)
         }
     )
-
-    #Funciones de graficos#
     
     output$grafico<-renderPlot({
         if(input$checkSites){
