@@ -9,20 +9,31 @@ shinyServer(function(input, output) {
     
     #Funcion de data, pilar del trabajo
     
-    data_total<-reactive(ChileAirQuality(Comunas = c(c(input$Comunas1, input$Comunas2)), Contaminantes = c(input$Contaminantes, input$F_Climaticos), input_fecha_inicio = as.character(input$Fecha_inicio, format("%d/%m/%Y")), input_fecha_termino = as.character(input$Fecha_Termino, format("%d/%m/%Y"))))
+    data_total<-reactive(ChileAirQuality(Comunas = c(c(input$Comunas1, input$Comunas2)),
+                                         Contaminantes = c(input$Contaminantes, input$F_Climaticos),
+                                         input_fecha_inicio = as.character(input$Fecha_inicio, format("%d/%m/%Y")),
+                                         input_fecha_termino = as.character(input$Fecha_Termino, format("%d/%m/%Y")),
+                                         val = input$validacion
+                                         ))
 
     #Controles Reactivos#
     output$moreControls <- renderUI({
         if(input$Select == "calendarPlot"){
             flowLayout(
                 #sliderInput(inputId = "year",min = substr(as.character(as.character(input$Fecha_inicio), 7, 10)), max = substr(as.character(as.character(input$Fecha_Termino), 7, 10))),
-                radioButtons(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes)
+                radioButtons(inputId = "choices",
+                             label = "Contaminantes",
+                             choices = input$Contaminantes)
             )
         }else if(input$Select == "scatterPlot"){
             flowLayout(
                 
-                splitLayout(radioButtons(inputId = "x", label = "Contaminantes", choices = input$Contaminantes),
-                            radioButtons(inputId = "y", label = "Contaminantes", choices = input$Contaminantes)
+                splitLayout(radioButtons(inputId = "x",
+                                         label = "Contaminantes",
+                                         choices = input$Contaminantes),
+                            radioButtons(inputId = "y",
+                                         label = "Contaminantes",
+                                         choices = input$Contaminantes)
             ),
             splitLayout(checkboxInput(inputId = "logx",label = "log(x)"),
                         checkboxInput(inputId ="logy",label = "log(y)"),
@@ -33,7 +44,10 @@ shinyServer(function(input, output) {
          
         }else{
             flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       checkboxGroupInput(inputId = "choices", label = "Contaminantes", choices = input$Contaminantes, selected = input$Contaminantes)
+                       checkboxGroupInput(inputId = "choices",
+                                          label = "Contaminantes",
+                                          choices = input$Contaminantes,
+                                          selected = input$Contaminantes)
                        
             )
             
@@ -63,21 +77,36 @@ shinyServer(function(input, output) {
         if(input$checkSites){
             if(input$Select=="timeVariation")
             {
-                timeVariation(data_total(), pollutant = input$choices, type = "site")
+                timeVariation(data_total(),
+                              pollutant = input$choices,
+                              type = "site")
             }else if(input$Select=="corPlot")
             {
-                corPlot(data_total(), pollutant = c(input$choices,input$F_Climaticos), type = "site")
+                corPlot(data_total(),
+                        pollutant = c(input$choices,input$F_Climaticos),
+                        type = "site")
             }else if(input$Select=="timePlot")
             {
-                timePlot(data_total(), pollutant = input$choices, type = "site")
+                timePlot(data_total(),
+                         pollutant = input$choices,
+                         type = "site")
             }else if(input$Select=="polarPlot")
             {
-                polarPlot(data_total(), pollutant = input$choices, type = "site")
+                polarPlot(data_total(),
+                          pollutant = input$choices,
+                          type = "site")
             }else if(input$Select=="calendarPlot")
             {
-                calendarPlot(data_total(), pollutant = input$choices, type = "site")
+                calendarPlot(data_total(),
+                             pollutant = input$choices, 
+                              type = "site")
             }else if(input$Select=="scatterPlot"){
-                scatterPlot(data_total(), x = input$x, y= input$y, x.log = input$logx, y.log = input$logy, linear = input$lineal)
+                scatterPlot(data_total(),
+                            x = input$x,
+                            y= input$y,
+                            x.log = input$logx,
+                            y.log = input$logy,
+                            linear = input$lineal)
             }
         }else{
             if(input$Select=="timeVariation")
@@ -96,7 +125,12 @@ shinyServer(function(input, output) {
             {
                 calendarPlot(data_total(), pollutant = input$choices)
             }else if(input$Select=="scatterPlot"){
-                scatterPlot(data_total(), x = input$x, y= input$y, log.x = input$logx, log.y = input$logy, linear = input$lineal)
+                scatterPlot(data_total(),
+                            x = input$x, 
+                            y= input$y,
+                            log.x = input$logx,
+                            log.y = input$logy,
+                            linear = input$lineal)
             }
         }
     })
@@ -166,7 +200,9 @@ shinyServer(function(input, output) {
     #Tabla de comunas
     
     output$info <- renderTable(
-        {ChileAirQuality(Comunas ="INFO", Contaminantes = "PM10",input_fecha_inicio = "01/01/2020", input_fecha_termino = "01/01/2020")}
+        {ChileAirQuality(Comunas ="INFO",
+                         input_fecha_inicio = "01/01/2020",
+                         input_fecha_termino = "01/01/2020")}
     )
     
     #Tabla de variables: Contaminantes y factores meteorologicos
