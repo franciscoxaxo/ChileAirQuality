@@ -13,8 +13,8 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
               "Independecia", "La Florida", "Las Condes", "Pudahuel", "Puente Alto",
               "Quilicura", "Quilicura 1", "Coyhaique I", "Coyhaique II")
   estationMatrix <- data.frame(Ciudad, cod, Latitud, Longitud, Estacion) #Matriz base de estaciones de monitoreo
-  
-  if(Comunas =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
+  info = Comunas[1]
+  if(info =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
     return((estationMatrix)) #Retorna matriz de estaciones
   }else{
     
