@@ -80,8 +80,7 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
                   if(inContaminante=="PM10")
                   {
                     contaminante_arana <- "/Cal/PM10//PM10.horario.horario.ic&" #Codigo especifico para PM10
-                    url <- gsub(" ", "",paste("urlSinca",
-                                            mCod, contaminante_arana, "", id_fecha,
+                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana, id_fecha,
                                             urlSinca2)) #Generar URL
                     try(
                       {
