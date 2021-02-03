@@ -1,10 +1,10 @@
 library(DT)
 library(shiny)
 library(openair)
+library(dplyr)
+library(plotly)
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/ChileAirQuality.R")
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/siteplot.R")
-
-
 
 shinyUI(
     
