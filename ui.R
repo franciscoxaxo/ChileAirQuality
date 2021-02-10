@@ -147,7 +147,7 @@ shinyUI(
     tabPanel("Variables",
              {
                verticalLayout(tableOutput("info_2"),
-                              actionLink("sinca", "sinca.mma.gob.cl")
+                              tags$body(HTML("<a href = 'https://sinca.mma.gob.cl/'> sinca.mma.gob.cl</a>"))
                )
              }
     )
