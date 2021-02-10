@@ -246,9 +246,7 @@ shinyServer(function(input, output) {
   #Tabla de comunas
   
   output$info <- renderTable(
-    {ChileAirQuality(Comunas ="INFO",
-                     input_fecha_inicio = "01/01/2020",
-                     input_fecha_termino = "01/01/2020")}
+    {ChileAirQuality()}
   )
   
   #Tabla de variables: Contaminantes y factores meteorologicos
