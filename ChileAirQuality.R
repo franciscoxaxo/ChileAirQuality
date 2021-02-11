@@ -1,20 +1,26 @@
 ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                             fechadeTermino, Site = FALSE, Curar = TRUE){
+  
   Ciudad <- c("SA", "CE1", "CE", "CN","EB", "IN","LF","LC","PU","PA","QU","QU1", "COI", "COII")
+  
   cod <- c("RM/D14", "RM/D16", "RM/D31", "RM/D18", "RM/D17", "RM/D11", "RM/D12",
            "RM/D13", "RM/D15", "RM/D27", "RM/D30", "RM/D19", "RXI/B03", "RXI/B04")
+  
   Latitud <- c("-33.450819", "-33.479515", "-33.482411","-33.419725","-33.533626","-33.408920",
                "-33.503288", "-33.363453", "-33.424439", "-33.577948", "-33.33632",
                "-33.352539", "-45.57993636", "-45.57904645")
+  
   Longitud <- c("-70.6604476", "-70.719064", "-70.703947"," -70.731790", "-70.665906", 
                 "-70.650886", "-70.587916", "-70.523024", "-70.749876", "-70.594184",
                 "-70.723583", "-70.747952", "-72.06108480", "-72.04996681")
+  
   Estacion <- c("P. O'Higgins", "Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque",
                 "Independecia", "La Florida", "Las Condes", "Pudahuel", "Puente Alto",
                 "Quilicura", "Quilicura 1", "Coyhaique I", "Coyhaique II")
+  
   estationMatrix <- data.frame(Ciudad, cod, Latitud, Longitud, Estacion) #Matriz base de estaciones de monitoreo
-  info = Comunas[1]
-  if(info =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
+  
+  if(Comunas[1] == "INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
     return((estationMatrix)) #Retorna matriz de estaciones
   }else{
     
@@ -65,16 +71,14 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
               latitude <- rep(mLon, horas + 1) # Generar columna latitud
               data <- data.frame(date, site, longitude, latitude) #Unir columnas
               {
-                p= NULL; inParametro = NULL #Limpiar variable
                 for(p in 1:length(Parametros))
                 {
                   inParametro <-  Parametros[p] #Asignar contaminante a variable
                   
-                  if(inParametro=="PM10")
+                  if(inParametro == "PM10")
                   {
-                    contaminante_arana <- "/Cal/PM10//PM10.horario.horario.ic&" #Codigo especifico para PM10
-                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana, id_fecha,
-                                              urlSinca2)) #Generar URL
+                    codParametro <- "/Cal/PM10//PM10.horario.horario.ic&" #Codigo especifico para PM10
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2)) #Generar URL
                     try(
                       {
                         PM10_Bruto <- read.csv(url,dec =",", sep= ";",na.strings= "") #Descargar csv
@@ -82,7 +86,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         PM10_col2  <- PM10_Bruto$Registros.preliminares
                         PM10_col3  <- PM10_Bruto$Registros.no.validados
                         PM10 <- gsub("NA","",gsub(" ", "",paste(PM10_col1,PM10_col2,PM10_col3))) #unir columnas del csv
-                        if(length(PM10)==0){PM10 <- rep("", horas + 1)}# Generar columna vacia en caso de que no exista informacion
+                        if(length(PM10) == 0){PM10 <- rep("", horas + 1)}# Generar columna vacia en caso de que no exista informacion
                         data <- data.frame(data,PM10) #Incorporar al df de la comuna
                         print(paste(inParametro,inEstation)) #Imprimir mnsje de exito
                       }
@@ -90,9 +94,9 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                     
                   } else if(inParametro == "PM25")
                   {
-                    contaminante_arana <- "/Cal/PM25//PM25.horario.horario.ic&" #Codigo especifico PM25
+                    codParametro <- "/Cal/PM25//PM25.horario.horario.ic&" #Codigo especifico PM25
                     url <- gsub(" ", "",paste(urlSinca,
-                                              mCod, contaminante_arana, id_fecha,
+                                              mCod, codParametro, id_fecha,
                                               urlSinca2)) #Generar URL
                     try(
                       {
@@ -101,15 +105,15 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         PM25_col2 <- PM25_Bruto$Registros.preliminares
                         PM25_col3 <- PM25_Bruto$Registros.no.validados
                         PM25 <- gsub("NA","",gsub(" ", "",paste(PM25_col1,PM25_col2,PM25_col3)))
-                        if(length(PM25)==0){PM25 <- rep("",horas + 1)}
+                        if(length(PM25) == 0){PM25 <- rep("",horas + 1)}
                         data <- data.frame(data,PM25) #Crear columna
                         print(paste(inParametro, inEstation)) #Mensaje de exito
                       }
                       , silent = TRUE)
-                  } else if(inParametro== "O3")
+                  } else if(inParametro == "O3")
                   {
-                    contaminante_arana <- "/Cal/0008//0008.horario.horario.ic&" #Codigo url Ozono
-                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana,
+                    codParametro <- "/Cal/0008//0008.horario.horario.ic&" #Codigo url Ozono
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro,
                                               id_fecha, urlSinca2)) #Generarurl
                     try(
                       {
@@ -123,14 +127,14 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         print(paste(inParametro,inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="CO")
+                  } else if(inParametro == "CO")
                   {
-                    contaminante_arana <- "/Cal/0004//0004.horario.horario.ic&" #Codigo CO
-                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana,
+                    codParametro <- "/Cal/0004//0004.horario.horario.ic&" #Codigo CO
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro,
                                               id_fecha, urlSinca2)) #Generar url
                     try(
                       {
-                        CO_Bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
+                        CO_Bruto <- read.csv(url, dec =",", sep= ";",na.strings = "")
                         CO_col1 <- CO_Bruto$Registros.validados
                         CO_col2 <- CO_Bruto$Registros.preliminares
                         CO_col3 <- CO_Bruto$Registros.no.validados
@@ -140,113 +144,103 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         print(paste(inParametro, inEstation)) #mensaje de exito
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="NO")
+                  } else if(inParametro == "NO")
                   {
-                    contaminante_arana <- "/Cal/0002//0002.horario.horario.ic&" #codigo monoxido de carbono
-                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana,
+                    codParametro <- "/Cal/0002//0002.horario.horario.ic&" #codigo monoxido de carbono
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro,
                                               id_fecha, urlSinca2)) #generar url
                     try(
                       {
-                        NO_Bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
+                        NO_Bruto <- read.csv(url, dec = ",", sep = ";",na.strings = "")
                         NO_col1 <- NO_Bruto$Registros.validados
                         NO_col2 <- NO_Bruto$Registros.preliminares
                         NO_col3 <- NO_Bruto$Registros.no.validados
-                        NO <- gsub("NA","",gsub(" ", "",paste(NO_col1,NO_col2,NO_col3)))
-                        if(length(NO)==0){NO <- rep("",horas + 1)}
-                        data <- data.frame(data,NO)
-                        print(paste(inParametro,inEstation)) #mensaje de exito
+                        NO <- gsub("NA", "", gsub(" ", "", paste(NO_col1, NO_col2, NO_col3)))
+                        if(length(NO) == 0){NO <- rep("", horas + 1)}
+                        data <- data.frame(data, NO)
+                        print(paste(inParametro, inEstation)) #mensaje de exito
                       }
                       ,silent = T)
-                  } else if(inParametro=="NO2")
+                  } else if(inParametro == "NO2")
                   {
-                    contaminante_arana <- "/Cal/0003//0003.horario.horario.ic&" #codigo dioxido de carbono
-                    url <- gsub(" ", "",paste(urlSinca, mCod, contaminante_arana,
-                                              id_fecha, urlSinca2))
+                    codParametro <- "/Cal/0003//0003.horario.horario.ic&" #codigo dioxido de carbono
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
-                        NO2_Bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
+                        NO2_Bruto <- read.csv(url, dec =",", sep= ";", na.strings= "")
                         NO2_col1 <- NO2_Bruto$Registros.validados
                         NO2_col2 <- NO2_Bruto$Registros.preliminares
                         NO2_col3 <- NO2_Bruto$Registros.no.validados
                         NO2 <- gsub("NA","",gsub(" ", "",paste(NO2_col1,NO2_col2,NO2_col3)))
-                        if(length(NO2)==0){NO2 <- rep("",horas + 1)}
-                        data <- data.frame(data,NO2)
+                        if(length(NO2) == 0){NO2 <- rep("",horas + 1)}
+                        data <- data.frame(data, NO2)
                         print(paste(inParametro,inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="NOX")
+                  } else if(inParametro == "NOX")
                   {
-                    contaminante_arana <- "/Cal/0NOX//0NOX.horario.horario.ic&"
-                    url <- gsub(" ", "",paste(urlSinca,
-                                              mCod, contaminante_arana, id_fecha,
-                                              urlSinca2))
+                    codParametro <- "/Cal/0NOX//0NOX.horario.horario.ic&"
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
                         NOX_Bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
                         NOX_col1 <- NOX_Bruto$Registros.validados
                         NOX_col2 <- NOX_Bruto$Registros.preliminares
                         NOX_col3 <- NOX_Bruto$Registros.no.validados
-                        NOX <- gsub("NA","",gsub(" ", "",paste(NOX_col1,NOX_col2,NOX_col3)))
-                        if(length(NOX)==0){NOX <- rep("",horas + 1)}
-                        data <- data.frame(data,NOX)
-                        print(paste(inParametro,inEstation))
+                        NOX <- gsub("NA", "", gsub(" ", "", paste(NOX_col1, NOX_col2, NOX_col3)))
+                        if(length(NOX) == 0){NOX <- rep("", horas + 1)}
+                        data <- data.frame(data, NOX)
+                        print(paste(inParametro, inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="temp")
+                  } else if(inParametro == "temp")
                   {
-                    contaminante_arana <- "/Met/TEMP//horario_000.ic&"
-                    url <- gsub(" ", "",paste(urlSinca,
-                                              mCod, contaminante_arana, id_fecha,
-                                              urlSinca2))
+                    codParametro <- "/Met/TEMP//horario_000.ic&"
+                    url <- gsub(" ", "", paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
                         temp_bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
                         temp_col1 <- temp_bruto$X
                         temp <- gsub("NA","",gsub(" ", "",temp_col1))
                         if(length(temp) == 0){temp <- rep("",horas + 1)}
-                        data <- data.frame(data,temp)
+                        data <- data.frame(data, temp)
                         print(paste(inParametro, inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="HR")
+                  } else if(inParametro == "HR")
                   {
-                    contaminante_arana <- "/Met/RHUM//horario_000.ic&"
+                    codParametro <- "/Met/RHUM//horario_000.ic&"
                     url <- gsub(" ", "",paste(urlSinca, 
-                                              mCod, contaminante_arana, id_fecha,
+                                              mCod, codParametro, id_fecha,
                                               urlSinca2))
                     try(
                       {
                         HR_bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
                         HR_col1 <- HR_bruto$X
                         HR <- gsub("NA","",gsub(" ", "",HR_col1))
-                        if(length(HR)==0){HR <- rep("",horas + 1)}
+                        if(length(HR) == 0){HR <- rep("",horas + 1)}
                         data <- data.frame(data,HR)
                         print(paste(inParametro,inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="wd")
+                  } else if(inParametro == "wd")
                   {
-                    contaminante_arana <- "/Met/WDIR//horario_000_spec.ic&"
-                    url <- gsub(" ", "",paste(urlSinca, mCod,
-                                              contaminante_arana,
-                                              id_fecha, 
-                                              urlSinca2))
+                    codParametro <- "/Met/WDIR//horario_000_spec.ic&"
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
                         wd_bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
                         wd_col1 <- wd_bruto$X
                         wd <- gsub("NA","",gsub(" ", "",wd_col1))
-                        if(length(wd) ==0 ){wd  <-  rep("",horas + 1)}
+                        if(length(wd) == 0 ){wd  <-  rep("",horas + 1)}
                         data <- data.frame(data,wd)
                         print(paste(inParametro,inEstation))
                       }
                       , silent = TRUE)
-                  } else if(inParametro=="ws")
+                  } else if(inParametro == "ws")
                   {
-                    contaminante_arana <- "/Met/WSPD//horario_000.ic&"
-                    url <- gsub(" ", "",paste(urlSinca,
-                                              mCod, contaminante_arana, id_fecha,
-                                              urlSinca2))
+                    codParametro <- "/Met/WSPD//horario_000.ic&"
+                    url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
                         ws_bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
@@ -280,7 +274,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
     }
     
     if(Curar){
-      len = length(data_total$date)
+      len = nrow(data_total) #Variable que almacena el numero de filas del dataframe
       try({
         for (i in 1:len) 
         {
@@ -289,7 +283,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
               if((as.numeric(data_total$NO[i]) + as.numeric(data_total$NO2[i])) > as.numeric(data_total$NOX[i]) * 1.001){
                 data_total$NO[i] = "" #Si la suma de NO y NO2 es mayor a NOX
                 data_total$NO2[i] = "" #Eliminar el dato de NO, NO2 y NOX
-                data_total$NOX[i] = ""
+                data_total$NOX[i] = "" #Conciderando error del 0.1%
                 
               }
             }
@@ -304,7 +298,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
             {
               if(as.numeric(data_total$PM25[i]) > as.numeric(data_total$PM10[i])*1.001){
                 data_total$PM10[i] = "" #Si PM25 es mayor a PM10 borrar PM10
-                data_total$PM25[i] = "" #Y PM25
+                data_total$PM25[i] = "" #Y PM25 conciderando error del 0.1%
               }
             }  
             ,silent = T)
