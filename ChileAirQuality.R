@@ -12,7 +12,6 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
   Estacion <- c("P. O'Higgins", "Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque",
                 "Independecia", "La Florida", "Las Condes", "Pudahuel", "Puente Alto",
                 "Quilicura", "Quilicura 1", "Coyhaique I", "Coyhaique II")
-  
   estationMatrix <- data.frame(Ciudad, cod, Latitud, Longitud, Estacion) #Matriz base de estaciones de monitoreo
   info = Comunas[1]
   if(info =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
@@ -118,9 +117,9 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         O3_col1 <- O3_Bruto$Registros.validados
                         O3_col2 <- O3_Bruto$Registros.preliminares
                         O3_col3 <- O3_Bruto$Registros.no.validados
-                        O3 <- gsub("NA","",gsub(" ", "",paste(O3_col1,O3_col2,O3_col3)))
+                        O3 <- gsub("NA","",gsub(" ", "",paste(O3_col1, O3_col2, O3_col3)))
                         if(length(O3) == 0){O3 <- rep("",horas + 1)}
-                        data <- data.frame(data,O3)
+                        data <- data.frame(data, O3)
                         print(paste(inParametro,inEstation))
                       }
                       , silent = TRUE)
@@ -136,7 +135,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                         CO_col2 <- CO_Bruto$Registros.preliminares
                         CO_col3 <- CO_Bruto$Registros.no.validados
                         CO <- gsub("NA","",gsub(" ", "",paste(CO_col1,CO_col2,CO_col3)))
-                        if(length(O3)==0){O3 <- rep("",horas + 1)}
+                        if(length(O3) == 0){O3 <- rep("",horas + 1)}
                         data <- data.frame(data,CO)
                         print(paste(inParametro, inEstation)) #mensaje de exito
                       }
