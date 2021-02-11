@@ -12,6 +12,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
   Estacion <- c("P. O'Higgins", "Cerrillos 1", "Cerrillos", "Cerro Navia", "El Bosque",
                 "Independecia", "La Florida", "Las Condes", "Pudahuel", "Puente Alto",
                 "Quilicura", "Quilicura 1", "Coyhaique I", "Coyhaique II")
+  
   estationMatrix <- data.frame(Ciudad, cod, Latitud, Longitud, Estacion) #Matriz base de estaciones de monitoreo
   info = Comunas[1]
   if(info =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
@@ -35,7 +36,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
     urlSinca2 <- "&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath=" #parte final de ur de extraccion
     
     #Data frame vacio#
-    date= NULL; n =NULL #Limpiar variables para evitar errores
+    date= NULL
     for(n in 0:horas) 
     {
       date <- c(date, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M")) #Generar coluna fecha
@@ -69,9 +70,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                 for(p in 1:length(Parametros))
                 {
                   inParametro <-  Parametros[p] #Asignar contaminante a variable
-                  url = NULL; contaminante_arana= NULL; PM10_Bruto =NULL;
-                  PM10_col1 = NULL; PM10_col2 = NULL; PM10_col3 = NULL;
-                  PM10 = NULL #Limpiar variables
+                  
                   if(inParametro=="PM10")
                   {
                     contaminante_arana <- "/Cal/PM10//PM10.horario.horario.ic&" #Codigo especifico para PM10
