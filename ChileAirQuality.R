@@ -13,8 +13,8 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
                 "Independecia", "La Florida", "Las Condes", "Pudahuel", "Puente Alto",
                 "Quilicura", "Quilicura 1", "Coyhaique I", "Coyhaique II")
   estationMatrix <- data.frame(Ciudad, cod, Latitud, Longitud, Estacion) #Matriz base de estaciones de monitoreo
-  
-  if(Comunas[1] =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
+  info = Comunas[1]
+  if(info =="INFO"){ #"INFO" para solicitar informacion de estaciones de monitoreo
     return((estationMatrix)) #Retorna matriz de estaciones
   }else{
     
@@ -29,14 +29,16 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
     id_fecha <- gsub(" ","",paste("from=", Fecha_inicio_para_arana, "&to=", Fecha_termino_para_arana)) #codigo de intervalo de fechas para enrutador
     horas <- (as.numeric(Fecha_termino)/3600-as.numeric(Fecha_inicio)/3600) #horas entre fechas
     
+    
+    
     urlSinca  <- "https://sinca.mma.gob.cl/cgi-bin/APUB-MMA/apub.tsindico2.cgi?outtype=xcl&macro=./" #parte inicial url de extraccion
-    urlSinca2 <- "&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath=" #parte final de url de extraccion
+    urlSinca2 <- "&path=/usr/airviro/data/CONAMA/&lang=esp&rsrc=&macropath=" #parte final de ur de extraccion
     
     #Data frame vacio#
     date= NULL; n =NULL #Limpiar variables para evitar errores
     for(n in 0:horas) 
     {
-      date <- c(date, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M")) #Generar columna fecha
+      date <- c(date, as.character(Fecha_inicio+3600*n, "%d/%m/%Y %H:%M")) #Generar coluna fecha
     }
     data <- data.frame(date)#Parche que evita un ERROR
     data_total <- data.frame() #Data frame Vacio
@@ -280,9 +282,10 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
     }
     
     if(Curar){
+      len = length(data_total$date)
       try({
         i =NULL
-        for (i in 1:(horas + 1)) 
+        for (i in 1:len) 
         {
           try(
             {
@@ -299,7 +302,7 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
       
       try({
         i =NULL
-        for (i in 1:length(data_total$PM10)) 
+        for (i in 1:len) 
         {
           try(
             {
@@ -314,7 +317,7 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
       
       try({
         i =NULL
-        for (i in 1:length(data_total$wd)) 
+        for (i in 1:len) 
         {
           try({
             if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) < 0){
@@ -327,7 +330,7 @@ ChileAirQuality <- function(Comunas = "INFO", Contaminantes, fechadeInicio,
       
       try({
         i =NULL
-        for (i in 1:length(data_total$HR)) 
+        for (i in 1:len) 
         {
           try(
             {
