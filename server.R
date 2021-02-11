@@ -15,7 +15,7 @@ shinyServer(function(input, output) {
   #Funcion de data, pilar del trabajo
   
   data_total<-reactive(ChileAirQuality(Comunas = c(c(input$Comunas1, input$Comunas2)),
-                                       Contaminantes = c(input$Contaminantes, input$F_Climaticos),
+                                       Parametros = c(input$Contaminantes, input$F_Climaticos),
                                        fechadeInicio = as.character(
                                          input$Fecha_inicio,
                                          format("%d/%m/%Y")
