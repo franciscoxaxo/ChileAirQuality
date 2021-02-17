@@ -1,8 +1,13 @@
 CV<- function(x, dec = 3){
   cv = (sd(x, na.rm = TRUE)/mean(x, na.rm = TRUE))*100
   cv = round(cv, dec)
-  cv = paste(cv, "%")
+  if(!is.na(cv)){
+    cv = paste(cv, "%")
+    return(cv)
+  }else{
   return(cv)
+  }
+  
 }
 
 meant<-function(x, dec = 3){
