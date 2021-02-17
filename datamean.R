@@ -3,10 +3,9 @@ CV<- function(x, dec = 3){
   cv = round(cv, dec)
   if(!is.na(cv)){
     cv = paste(cv, "%")
-    return(cv)
-  }else{
-  return(cv)
   }
+  return(cv)
+}
   
 }
 
