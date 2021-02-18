@@ -6,8 +6,7 @@ CV<- function(x, dec = 3){
   }
   return(cv)
 }
-  
-}
+
 
 meant<-function(x, dec = 3){
   meant = round(mean(x, na.rm = TRUE), dec)
