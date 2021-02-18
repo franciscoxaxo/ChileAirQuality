@@ -6,7 +6,7 @@ siteplot<-function(data, latitud = data$Latitud, longitud = data$Longitud, centr
   fig<-plot_ly(data,
                lat = latitud,
                lon = longitud,
-               marker = list(color = "fuchsia"),
+               marker = list(color = "red"),
                hovertext = ~paste("Estacion:", data$Estacion,"<br />", "Site:", data$Ciudad), 
                type = 'scattermapbox'
   )
