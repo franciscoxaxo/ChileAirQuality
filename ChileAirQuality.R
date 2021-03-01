@@ -243,7 +243,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
                     url <- gsub(" ", "",paste(urlSinca, mCod, codParametro, id_fecha, urlSinca2))
                     try(
                       {
-                        ws_bruto <- read.csv(url,dec =",", sep= ";",na.strings= "")
+                        ws_bruto <- read.csv(url, dec = ",", sep= ";", na.strings= "")
                         ws_col1 <- ws_bruto$X
                         ws <- gsub("NA","",gsub(" ", "",ws_col1))
                         if(length(ws) == 0){ws <- rep("",horas + 1)}
@@ -309,7 +309,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
         for (i in 1:len) 
         {
           try({
-            if(as.numeric(data_total$wd[i]) > 360||as.numeric(data_total$wd[i]) < 0){
+            if(as.numeric(data_total$wd[i]) > 360 | as.numeric(data_total$wd[i]) < 0){
               data_total$wd[i] = "" #Si la tireccion del viento es menor a 0 o mayor a 360 eliminar el dato
             }
           }, silent = T)
@@ -323,7 +323,7 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio,
         {
           try(
             {
-              if(as.numeric(data_total$HR[i]) > 100||as.numeric(data_total$HR[i]) <0){
+              if(as.numeric(data_total$HR[i]) > 100 | as.numeric(data_total$HR[i]) <0){
                 data_total$HR[i] = "" #Si la humedad relativa es mayor al 100% borrar el dato
               }
               
