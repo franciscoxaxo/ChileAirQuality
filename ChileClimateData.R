@@ -1,7 +1,7 @@
 ChileClimateData <- function(Estaciones = "INFO", Parametros, inicio, fin, Region = FALSE){
 
 
-  sysEstaciones   <- system.file("extdata", "Estaciones.csv", package = "climateandquality")
+  sysEstaciones   <- "https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/Estaciones.csv"
   tablaEstaciones <- read.csv(sysEstaciones, sep = "," , dec =".", encoding = "UTF-8")
 
   if(Estaciones[1] == "INFO"){
