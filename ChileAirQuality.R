@@ -2,12 +2,37 @@
 ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio, fechadeTermino, Site = FALSE, Curar = TRUE){
 
   estationMatrix <- data.frame(
-    "Ciudad"   = c("SA","CE1","CE","CN","EB","IN","LF","LC","PU","PA","QU","QU1","AH","AR","TE","TEII","TEIII","PLCI","PLCII","LU","LR","MAI","MAII","MAIII","VA","VAII","OS","OSII","PMI","PMII","PMIII","PMIV","PV","COI","COII","PAR"),
-    "cod"      = c("RM/D14","RM/D16","RM/D31","RM/D18","RM/D17","RM/D11","RM/D12","RM/D13","RM/D15","RM/D27","RM/D30","RM/D19","RI/117","RXV/F01","RIX/901","RIX/905","RIX/904","RIX/903","RIX/902","RXIV/E04","RXIV/E06","RXIV/E01","RXIV/E05","RXIV/E02","RXIV/E03","RXIV/E08","RX/A01","RX/A04","RX/A08","RX/A07","RX/A02","RX/A03","RX/A09","RXI/B03","RXI/B04","RXII/C05"),
-    "Latitud"  = c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.40892","-33.503288","-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","-20.290467","-18.476839","-38.748699","-38.727003","-38.725302","-38.772463","-38.764767","-40.286857","-40.321282","-39.665626","-39.542346","-39.719218","-39.831316","-39.805429","-40.584479","-40.683736","-41.39917","-41.479507","-41.510342","-41.18765","-41.328935","-45.57993636","-45.57904645","-53.158295"),
-    "Longitud" = c("-70.6604476","-70.719064","-70.703947","-70.73179","-70.665906","-70.650886","-70.587916","-70.523024","-70.749876","-70.594184","-70.723583","-70.747952","-70.100192","-70.287911","-72.620788","-72.580002","-72.571193","-72.595024","-72.598796","-73.07671","-72.471895","-72.953729","-72.925205","-73.128677","-73.228513","-73.25873","-73.11872","-72.596399","-72.899523","-72.968756","-73.065294","-73.08804","-72.968209","-72.0610848","-72.04996681","-70.921497"),
-    "Estacion" = c("P. O'Higgins","Cerrillos 1","Cerrillos","Cerro Navia","El Bosque","Independecia","La Florida","Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Alto Hospicio","Arica","Las Encinas Temuco","Nielol Temuco","Museo Ferroviario Temuco","Padre Las Casas I","Padre Las Casas II","La Union","CESFAM Lago Ranco","Mafil","Fundo La Ribera","Vivero Los Castanos","Valdivia I","Valdivia II","Osorno","Entre Lagos","Alerce","Mirasol","Trapen Norte","Trapen Sur","Puerto Varas","Coyhaique I","Coyhaique II","Punta Arenas"),
-    "Region"   = c("RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","I","XV","IX","IX","IX","IX","IX","XIV","XIV","XIV","XIV","XIV","XIV","XIV","X","X","X","X","X","X","X","XI","XI","XII")
+    "Ciudad"   = c("SA","CE1","CE","CN","EB","IN","LF","LC","PU","PA","QU","QU1","AH","AR","TE","TEII",
+                   "TEIII","PLCI","PLCII","LU","LR","MAI","MAII","MAIII","VA","VAII","OS","OSII","PMI",
+                   "PMII","PMIII","PMIV","PV","COI","COII","PAR"),
+    "cod"      = c("RM/D14","RM/D16","RM/D31","RM/D18","RM/D17","RM/D11","RM/D12","RM/D13","RM/D15",
+                   "RM/D27","RM/D30","RM/D19","RI/117","RXV/F01","RIX/901","RIX/905","RIX/904","RIX/903",
+                   "RIX/902","RXIV/E04","RXIV/E06","RXIV/E01","RXIV/E05","RXIV/E02","RXIV/E03","RXIV/E08",
+                   "RX/A01","RX/A04","RX/A08","RX/A07","RX/A02","RX/A03","RX/A09","RXI/B03","RXI/B04","RXII/C05"),
+    
+    "Latitud"  = c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.40892","-33.503288",
+                   "-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","-20.290467","-18.476839",
+                   "-38.748699","-38.727003","-38.725302","-38.772463","-38.764767","-40.286857","-40.321282",
+                   "-39.665626","-39.542346","-39.719218","-39.831316","-39.805429","-40.584479","-40.683736",
+                   "-41.39917","-41.479507","-41.510342","-41.18765","-41.328935","-45.57993636","-45.57904645",
+                   "-53.158295"),
+    
+    "Longitud" = c("-70.6604476","-70.719064","-70.703947","-70.73179","-70.665906","-70.650886","-70.587916",
+                   "-70.523024","-70.749876","-70.594184","-70.723583","-70.747952","-70.100192","-70.287911",
+                   "-72.620788","-72.580002","-72.571193","-72.595024","-72.598796","-73.07671","-72.471895",
+                   "-72.953729","-72.925205","-73.128677","-73.228513","-73.25873","-73.11872","-72.596399",
+                   "-72.899523","-72.968756","-73.065294","-73.08804","-72.968209","-72.0610848","-72.04996681",
+                   "-70.921497"),
+    
+    "Estacion" = c("P. O'Higgins","Cerrillos 1","Cerrillos","Cerro Navia","El Bosque","Independecia","La Florida",
+                   "Las Condes","Pudahuel","Puente Alto","Quilicura","Quilicura 1","Alto Hospicio","Arica",
+                   "Las Encinas Temuco","Nielol Temuco","Museo Ferroviario Temuco","Padre Las Casas I",
+                   "Padre Las Casas II","La Union","CESFAM Lago Ranco","Mafil","Fundo La Ribera",
+                   "Vivero Los Castanos","Valdivia I","Valdivia II","Osorno","Entre Lagos","Alerce","Mirasol",
+                   "Trapen Norte","Trapen Sur","Puerto Varas","Coyhaique I","Coyhaique II","Punta Arenas"),
+    
+    "Region"   = c("RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","RM","I","XV","IX","IX","IX","IX",
+                   "IX","XIV","XIV","XIV","XIV","XIV","XIV","XIV","X","X","X","X","X","X","X","XI","XI","XII")
     
     
   )
