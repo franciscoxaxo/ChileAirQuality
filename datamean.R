@@ -59,3 +59,41 @@ datacv<- function(data, inicio = 5){
   datacv <- as.data.frame(datacv)
   return(datacv)
 }
+
+
+datamean2<- function(data, inicio = 5){
+  library(data.table)
+  len = length(data)
+  data<- data.table(data)
+  datamean <- data[, lapply(.SD, meant), by = .(Nombre, Latitud, Longitud), .SDcols = inicio:len]
+  datamean <- as.data.frame(datamean)
+  return(datamean)
+}
+
+
+datasd2<- function(data, inicio = 5){
+  library(data.table)
+  len = length(data)
+  data<- data.table(data)
+  datasd <- data[, lapply(.SD, sdt), by = .(Nombre, Latitud, Longitud), .SDcols = inicio:len]
+  datasd <- as.data.frame(datasd)
+  return(datasd)
+}
+
+datamedian2<- function(data, inicio = 5){
+  library(data.table)
+  len = length(data)
+  data<- data.table(data)
+  datamedian <- data[, lapply(.SD, mediant), by = .(Nombre, Latitud, Longitud), .SDcols = inicio:len]
+  datamedian <- as.data.frame(datamedian)
+  return(datamedian)
+}
+
+datacv2<- function(data, inicio = 5){
+  library(data.table)
+  len = length(data)
+  data<- data.table(data)
+  datacv <- data[, lapply(.SD, CV), by = .(Nombre, Latitud, Longitud), .SDcols = inicio:len]
+  datacv <- as.data.frame(datacv)
+  return(datacv)
+}
