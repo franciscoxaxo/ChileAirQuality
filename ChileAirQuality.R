@@ -10,14 +10,14 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio, fechade
                    "RIX/902","RXIV/E04","RXIV/E06","RXIV/E01","RXIV/E05","RXIV/E02","RXIV/E03","RXIV/E08",
                    "RX/A01","RX/A04","RX/A08","RX/A07","RX/A02","RX/A03","RX/A09","RXI/B03","RXI/B04","RXII/C05"),
     
-    "Latitud"  = c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.40892","-33.503288",
+    "Longitud"  = c("-33.450819","-33.479515","-33.482411","-33.419725","-33.533626","-33.40892","-33.503288",
                    "-33.363453","-33.424439","-33.577948","-33.33632","-33.352539","-20.290467","-18.476839",
                    "-38.748699","-38.727003","-38.725302","-38.772463","-38.764767","-40.286857","-40.321282",
                    "-39.665626","-39.542346","-39.719218","-39.831316","-39.805429","-40.584479","-40.683736",
                    "-41.39917","-41.479507","-41.510342","-41.18765","-41.328935","-45.57993636","-45.57904645",
                    "-53.158295"),
     
-    "Longitud" = c("-70.6604476","-70.719064","-70.703947","-70.73179","-70.665906","-70.650886","-70.587916",
+    "Latitud" = c("-70.6604476","-70.719064","-70.703947","-70.73179","-70.665906","-70.650886","-70.587916",
                    "-70.523024","-70.749876","-70.594184","-70.723583","-70.747952","-70.100192","-70.287911",
                    "-72.620788","-72.580002","-72.571193","-72.595024","-72.598796","-73.07671","-72.471895",
                    "-72.953729","-72.925205","-73.128677","-73.228513","-73.25873","-73.11872","-72.596399",
@@ -71,8 +71,8 @@ ChileAirQuality <- function(Comunas = "INFO", Parametros, fechadeInicio, fechade
         for(j in 1:nrow(estationMatrix)){
           mSite      <-  estationMatrix[j, 1] #Asignar site a variable
           mCod       <-  estationMatrix[j, 2] #Asignar code a variable
-          mLat       <-  estationMatrix[j, 3] #Asignar latitud a variable
-          mLon       <-  estationMatrix[j, 4] #Asignar longitud a variable
+          mLon       <-  estationMatrix[j, 3] #Asignar latitud a variable
+          mLat       <-  estationMatrix[j, 4] #Asignar longitud a variable
           mEstation  <-  estationMatrix[j, 5] #Asignar estacion a variable
           if(Site){                 # Si Site es verdadero
             aux      <-  mSite      #aux, la variable de comparacion
