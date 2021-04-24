@@ -97,3 +97,27 @@ datacv2<- function(data, inicio = 5){
   datacv <- as.data.frame(datacv)
   return(datacv)
 }
+
+comparFunction<- function(data){
+obs <- data
+      comparar <- data.frame(
+       par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF"),
+       nom <- c("Ts_Valor", "Td_Valor", "HR_Valor",  "QFE_Valor", "QFF_Valor")
+      )
+      for(i in 1:length(obs)){
+        aux <- obs[i]
+        a <- NULL
+        for(j in 1:length(par)){
+          aux1 <- comparar[1, j]
+          aux2 <- comparar[2, j]
+          if(aux == aux1){
+            a <- c(a, aux2)
+          }else if(aux == "Viento"){
+            a <- c(a, "dd_Valor", "ff_Valor", "VRB_Valor")
+          }
+        }
+
+      }
+  return(a)
+}
+  
