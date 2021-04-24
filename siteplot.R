@@ -1,4 +1,4 @@
-siteplot<-function(data, latitud = data$Latitud, longitud = data$Longitud, centro = c(-70.6, -33.4)){
+siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centro = c(-70.6, -33.4)){
   library("ggplot2")
   library("plotly")
   library("dplyr")
