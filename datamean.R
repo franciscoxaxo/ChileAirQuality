@@ -102,7 +102,7 @@ comparFunction<- function(data){
   obs <- data
   comparar <- data.frame(
     par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF", "dd_Valor", "ff_Valor", "VRB_Valor"),
-    nom <- c("Ts_Valor", "Td_Valor", "HR_Valor",  "QFE_Valor", "QFF_Valor", "dd_Valor", "ff_Valor","VRB_Valor")
+    nom <- c("Ts_Valor", "Td_Valor", "HR_Valor",  "QFE_Valor", "QFF_Valor", "dd_Valor", "ff_Valor", "VRB_Valor")
   )
   a <- NULL
   for(i in 1:length(obs)){
