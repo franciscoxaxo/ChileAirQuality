@@ -107,35 +107,15 @@ comparFunction<- function(data){
   a <- NULL
   for(i in 1:length(obs)){
     aux <- obs[i]
-      for(j in 1:nrow(comparar)){
-        aux1 <- comparar[j, 1]
-        aux2 <- comparar[j, 2]
-        if(aux == aux1){
-          a <- c(a, aux2)
-      }
-    }
-    
-  }
-  print(a)
-  return(a)
-}
-
-comparFunction1<- function(data){
-  obs <- data
-  comparar <- data.frame(
-    par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF")
-  )
-  a <- NULL
-  for(i in 1:length(obs)){
-    aux <- obs[i]
     if(aux == "Viento"){
       a <- c(a, "dd_Valor", "ff_Valor")
     }else{
       for(j in 1:nrow(comparar)){
         aux1 <- comparar[j, 1]
+        aux2 <- comparar[j, 2]
         if(aux == aux1){
-          a <- c(a, aux1)
-        }
+          a <- c(a, aux2)
+          }
       }
     }
     
