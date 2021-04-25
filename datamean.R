@@ -116,6 +116,7 @@ comparFunction<- function(data){
     }
     
   }
+  print(a)
   return(a)
 }
 
@@ -139,5 +140,6 @@ comparFunction1<- function(data){
     }
     
   }
+  print(a)
   return(a)
 }
