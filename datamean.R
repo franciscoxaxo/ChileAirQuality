@@ -101,8 +101,28 @@ datacv2<- function(data, inicio = 5){
 comparFunction<- function(data){
   obs <- data
   comparar <- data.frame(
-    par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF"),
-    nom <- c("Ts_Valor", "Td_Valor", "HR_Valor",  "QFE_Valor", "QFF_Valor")
+    par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF", "dd_Valor", "ff_Valor", "VRB_Valor"),
+    nom <- c("Ts_Valor", "Td_Valor", "HR_Valor",  "QFE_Valor", "QFF_Valor", "dd_Valor", "ff_Valor""VRB_Valor")
+  )
+  a <- NULL
+  for(i in 1:length(obs)){
+    aux <- obs[i]
+      for(j in 1:nrow(comparar)){
+        aux1 <- comparar[j, 1]
+        aux2 <- comparar[j, 2]
+        if(aux == aux1){
+          a <- c(a, aux2)
+      }
+    }
+    
+  }
+  return(a)
+}
+
+comparFunction1<- function(data){
+  obs <- data
+  comparar <- data.frame(
+    par<- c("Temperatura", "PuntoRocio", "Humedad", "PresionQFE", "PresionQFF")
   )
   a <- NULL
   for(i in 1:length(obs)){
@@ -112,9 +132,8 @@ comparFunction<- function(data){
     }else{
       for(j in 1:nrow(comparar)){
         aux1 <- comparar[j, 1]
-        aux2 <- comparar[j, 2]
         if(aux == aux1){
-          a <- c(a, aux2)
+          a <- c(a, aux1)
         }
       }
     }
