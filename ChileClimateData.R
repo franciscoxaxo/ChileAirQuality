@@ -190,7 +190,10 @@ ChileClimateData <- function(Estaciones = "INFO", Parametros, inicio, fin, Regio
 
   data_total <- data_total[!(is.na(data_total$date)),]
   data_total <- data_total[!(is.na(data_total$Nombre)),]
-
+  
   data_total <- as.data.frame(data_total)
+  for(i in 3:ncol(data_total)){
+    data_total[[i]]  <-  as.numeric(data_total[[i]]) #transformar columnas en variables numericas
+  }
   return(data_total)
 }
