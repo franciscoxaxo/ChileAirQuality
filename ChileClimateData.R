@@ -123,6 +123,7 @@ ChileClimateData <- function(Estaciones = "INFO", Parametros, inicio, fin, Regio
                 filename <- paste(estacion_var,"_",intervalo[m],"_", parametros_list[l], ".zip", sep = "")
                 csvname <- paste(estacion_var,"_",intervalo[m],"_", parametros_list[l], "_.csv", sep = "")
                 CSV <- NULL
+                try({
                 download.file(url3, destfile = filename, method = "curl")
                 suppressWarnings({
                   unzip(zipfile = filename)
@@ -131,6 +132,7 @@ ChileClimateData <- function(Estaciones = "INFO", Parametros, inicio, fin, Regio
                   }, silent = T)
                 })
 
+                }, silent = TRUE)
                 if(is.null(CSV)| length(CSV) == 0){
                   momento1 <- as.POSIXct(strptime(paste("01-01-", intervalo[m], "00:00:00", sep =""), format = "%d-%m-%Y %H:%M:%S"))
                   momento2 <- as.POSIXct(strptime(paste("31-12-", intervalo[m], "23:00:00", sep =""), format = "%d-%m-%Y %H:%M:%S"))
