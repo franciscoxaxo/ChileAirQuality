@@ -1,4 +1,4 @@
-#libraries
+############################### LIBRARIES ######################################
 library(DT)
 library(shiny)
 library(openair)
@@ -8,7 +8,8 @@ library(data.table)
 library(lubridate)
 library(shinycssloaders)
 
-#functions
+############################ FUNCTIONS #########################################
+
 ##ClimateData function
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/R/ChileClimateData.R")
 ##AirQuality function
@@ -17,12 +18,16 @@ source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/m
 ##Complementary statistics functions
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/R/complementaryFunctions.R")
 
+########################### IU #################################################
+
 
 shinyUI(
-  
+  ################################### HEAD #####################################
   fluidPage(
     tags$head(HTML("<title>ChileAirQuality Proyect</title>")),
-    #Airquality dataset
+    
+    ################################# CALIDAD DEL AIRE TAB######################
+    
     tabsetPanel(tabPanel("Data Calidad del Aire",
                          {
                            titlePanel("Captura de Datos")
@@ -93,7 +98,7 @@ shinyUI(
                            )
                          }
     ),
-    #Climate dataset
+    ############################### DATA CLIMATE TAB ###########################
     tabPanel("Data Climatica",
              {
                sidebarLayout(
@@ -146,7 +151,7 @@ shinyUI(
                )
              }
     ),
-    #Graphics tools
+    ############################## GRAFICAS TAB ################################
     tabPanel("Gráficas",
              {
                sidebarLayout(
@@ -160,12 +165,7 @@ shinyUI(
                    submitButton("Actualizar")
                  ),
                  mainPanel(
-                   verticalLayout(
-                     #Deploy air quality  graphics
-                     plotOutput("grafico"),
-                     uiOutput("text")
-                     
-                   )
+                   withSpinner(uiOutput("mainGraphics"))
                    ,
                    #Hide errors
                    tags$style(type="text/css",
@@ -177,12 +177,12 @@ shinyUI(
                )
              }
     ),
-    #Statistics tools
+    ############################# RESUMEN TAB ##################################
     tabPanel("Resumen",
              {
                sidebarLayout(
                  sidebarPanel(
-                   uiOutput("sData"), ##In development!!!
+                   uiOutput("sData"), 
                    #Select statistic summary option
                    selectInput("statsummary","Resumen Estadistico",
                                choices = c("--Seleccionar--","Promedio",
@@ -211,15 +211,15 @@ shinyUI(
                
              }
     ),
-    #Information tab
+    ############################ INFORMACION TAB ###############################
     tabPanel("Información",
              {
                #Table of variables
                verticalLayout(
                  
                  tags$body(HTML("
-                   <h1>Calidad del aire</h1>
-                   <h2>Variables de Calidad del aire</h2>
+                   <h1><strong>Calidad del aire</strong></h1>
+                   <h2><strong>Variables de Calidad del aire</strong></h2>
                    <p>Esta aplicación tiene disponible los siguientes
                       parámetros para el análisis de la calidad del
                       aire disponibles del Sistema de Información
@@ -228,12 +228,14 @@ shinyUI(
                  withSpinner(tableOutput("info_2")),
                  tags$body(HTML("
                   <a href = 'https://sinca.mma.gob.cl/'> sinca.mma.gob.cl</a>
-                  <h2>Estaciones de monitoreo</h2>    
+                  <h2><strong>Estaciones de monitoreo</strong></h2>    
                   <p>Los datos recopilados por esta aplicación son reportados 
                      por el sistema de información nacional de calidad
                      del aire a partir de la red de estaciones de monitoreo
                      MACAM distribuidas en las comunas de la región metropolitana. </p>"
                  )),
+
+                 
                  withSpinner(plotlyOutput("sitemap",
                               width = "500px",
                               height = "500px"
@@ -241,8 +243,8 @@ shinyUI(
                  tags$body(HTML("
                   <br>
                   <br>
-                  <h1>Meteorología</h1>
-                  <h2>Variables meteorológicas</h2>
+                  <h1><strong>Meteorología</strong></h1>
+                  <h2><strong>Variables meteorológicas</strong></h2>
                   <p>Esta aplicación tiene disponible los siguientes
                       parámetros para el análisis meteorológicos 
                       disponibles en la Dirección meteorológica de 

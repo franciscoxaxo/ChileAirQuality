@@ -1,4 +1,4 @@
-#libraries
+############################### LIBRARIES ######################################
 library(DT)
 library(shiny)
 library(openair)
@@ -8,8 +8,7 @@ library(data.table)
 library(lubridate)
 library(shinycssloaders)
 
-
-#functions
+############################ FUNCTIONS #########################################
 ##ClimateData function
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/R/ChileClimateData.R")
 ##AirQuality function
@@ -17,9 +16,11 @@ source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/m
 ##Complementary statistics functions
 source("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQualityProject/master/R/complementaryFunctions.R")
 
-
+####################################### SERVER #################################
 shinyServer(function(input, output) {
   
+
+  ######################################CALIDAD DEL AIRE TAB####################
   
   #Reactive function for download air quality information from SINCA
   data_totalAQ<-reactive(
@@ -37,6 +38,27 @@ shinyServer(function(input, output) {
       Curar = input$validacion
     ))
   
+  #Data Table for air quality information
+  output$table <- DT::renderDataTable(
+    DT::datatable({data_totalAQ()},
+                  filter = "top",
+                  selection = 'multiple',
+                  style = 'bootstrap'
+    )
+  )
+  
+  #Download Botton for air quality data
+  output$descargar<-downloadHandler(
+    filename = "data.csv",
+    content = function(file){
+      write.csv(data_totalAQ(), file)
+    }
+  )
+  
+
+
+  ############################### DATA CLIMATE TAB #############################
+  
   #reactive function for download climate data from DMC
   data_totalDC <- reactive(
     
@@ -47,50 +69,6 @@ shinyServer(function(input, output) {
       fin = input$rango[2],
       Region = TRUE
     ))
-  
-  #IN DEVELOPMENT!!!
-  #  Select dataset
-  output$sData <- renderUI({
-    selectInput("selectData","Seleccionar dataset",
-                choices = c("--Seleccionar--","Data Climatica", "Calidad del aire")
-    )
-  })
-  
-  output$sData2 <- renderUI({
-    selectInput("selectData2","Seleccionar dataset",
-                choices = c("--Seleccionar--","Data Climatica", "Calidad del aire")
-    )
-    
-    
-    
-  })
-  output$selectorGraficos <- renderUI({
-    
-    suppressWarnings({
-      if(input$selectData2 == "Calidad del aire"){
-        selectInput("Select","Tipo de Grafico",
-                    choices = c("--Seleccionar--","timeVariation","corPlot","timePlot",
-                                "calendarPlot","polarPlot","scatterPlot","smoothTrend")
-        )
-      }
-      else if(input$selectData2 == "Data Climatica"){
-        selectInput("Select","Tipo de Grafico",
-                    choices = c("--Seleccionar--","timeVariation","corPlot","timePlot",
-                                "calendarPlot")
-        )
-      }
-      
-    })
-    
-    
-    
-  })
-  
-  #Transform controls for meteorological parameters
-  parClimaticos <- reactive({comparFunction(input$parametros)})
-  
-  
-  
   
   #Deploy data table for climate data
   output$table1 <- DT::renderDataTable(
@@ -108,354 +86,297 @@ shinyServer(function(input, output) {
       write.csv(data_totalDC(), file)
     }
   )
+
+  ############################## GRAFICAS TAB ##################################
   
-  
-  #Store information of air quality stations
-  site<-reactive(ChileAirQuality())
-  
-  #Map plot of airquality stations
-  output$sitemap<-renderPlotly({
-    siteplot(
-      site()
+  output$sData2 <- renderUI({
+    selectInput("selectData2","Seleccionar dataset",
+                choices = c("--Seleccionar--","Data Climatica", "Calidad del aire")
     )
   })
-  
-  #IN DEVELOPMENT!!!
-  
-  #Calculate the stats summary
-  stats<-reactive(
-    if(input$selectData == "Data Climatica"){
-      if(input$statsummary == "Promedio"){
-        datamean2(data_totalDC())
-      }else if(input$statsummary == "Mediana"){
-        datamedian2(data_totalDC())
-      }else if(input$statsummary == "Desviacion Estandar"){
-        datasd2(data_totalDC())
-      }else if(input$statsummary == "coeficiente de variacion"){
-        datacv2(data_totalDC())
-      }
-    }else if(input$selectData == "Calidad del aire"){
-      if(input$statsummary == "Promedio"){
-        datamean(data_totalAQ())
-      }else if(input$statsummary == "Mediana"){
-        datamedian(data_totalAQ())
-      }else if(input$statsummary == "Desviacion Estandar"){
-        datasd(data_totalAQ())
-      }else if(input$statsummary == "coeficiente de variacion"){
-        datacv(data_totalAQ())
-      }
-    }
+  output$selectorGraficos <- renderUI({
     
-    
-  )
-  
-  #Build the DF with  the stats summary
-  output$statstable <- DT::renderDataTable(
-    DT::datatable({stats()},
-                  filter = "top",
-                  selection = 'multiple',
-                  style = 'bootstrap'
-    )
-  )
-  
-  #Download button for stats summary data
-  output$descargarstats<-downloadHandler(
-    filename = "stats.csv",
-    content = function(file){
-      write.csv(stats(), file)
+    if(input$selectData2 == "Calidad del aire"){
+      selectInput("Select","Tipo de Grafico",
+                  choices = c("--Seleccionar--","timeVariation","corPlot","timePlot",
+                              "calendarPlot","polarPlot","scatterPlot","smoothTrend")
+      )
     }
-  )
-  
+    else if(input$selectData2 == "Data Climatica"){
+      selectInput("Select","Tipo de Grafico",
+                  choices = c("--Seleccionar--","timeVariation","corPlot","timePlot",
+                              "calendarPlot","smoothTrend")
+      )
+    }
+  })
   
   #Deploy reactive controls option for air quality graphics
   output$moreControls <- renderUI({
-    suppressWarnings(
-      {
-        if(input$selectData2 == "Calidad del aire"){
-          ##Options for calendarPlot
-          if(input$Select == "calendarPlot"){
-            flowLayout(
-              sliderInput("rango_calendar",
-                          "Rango:",
-                          step = 1,
-                          min = year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
-                          max = year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")),
-                          value = c(year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
-                                    year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")))),
-              radioButtons(inputId = "choices",
-                           label = "Contaminantes",
-                           choices = input$Contaminantes)
-            )
-          }else if(input$Select == "scatterPlot"){
-            ##Options for scatterPlot
-            flowLayout(
-              splitLayout(radioButtons(inputId = "x",
-                                       label = "Contaminantes",
-                                       choices = input$Contaminantes),
-                          radioButtons(inputId = "y",
-                                       label = "Contaminantes",
-                                       choices = input$Contaminantes)
-              ),
-              splitLayout(
-                #Logaritm options in the X axis
-                checkboxInput(inputId = "logx",label = "log(x)"),
-                #Logaritm options in the Y axis
-                checkboxInput(inputId ="logy",label = "log(y)"),
-                #Trace lineal correlation
-                checkboxInput(inputId ="lineal",label = "Lineal")
-              )
-              
-            )
-            
-          }else if(input$Select == "smoothTrend"){
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       radioButtons(inputId = "choices",
-                                    label = "Contaminantes",
-                                    choices = input$Contaminantes)
-            )
-          }else if(input$Select == "timePlot"){
-            #Deploy un-group for station option
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       selectInput("avgtime","Promedio de tiempo",
-                                   choices = c("hour","year","month","week",
-                                               "day")),
-                       checkboxGroupInput(inputId = "choices",
-                                          label = "Contaminantes",
-                                          choices = input$Contaminantes,
-                                          selected = input$Contaminantes)
-                       
-            )
-            
-          }else{
-            #Deploy un-group for station option
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       checkboxGroupInput(inputId = "choices",
-                                          label = "Contaminantes",
-                                          choices = input$Contaminantes,
-                                          selected = input$Contaminantes)
-                       
-            )
-            
-          }
-        }
-        else if(input$selectData2 == "Data Climatica"){
-          if(input$Select == "calendarPlot"){
-            flowLayout(
-              sliderInput("rango_calendar",
-                          "Rango:",
-                          step = 1,
-                          min = year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
-                          max = year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")),
-                          value = c(year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
-                                    year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")))),
-              radioButtons(inputId = "choices",
-                           label = "Parametros",
-                           choices = parClimaticos())
-            )
-          }else if(input$Select == "smoothTrend"){
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       radioButtons(inputId = "choices",
-                                    label = "Parametros",
-                                    choices = parClimaticos())
-            )
-          }else if(input$Select == "timePlot"){
-            #Deploy un-group for station option
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       selectInput("avgtime","Promedio de tiempo",
-                                   choices = c("hour","year","month","week",
-                                               "day")),
-                       checkboxGroupInput(inputId = "choices",
-                                          label = "Parametros",
-                                          choices = parClimaticos(),
-                                          selected = parClimaticos())
-                       
-            )
-            
-          }else{
-            #Deploy un-group for station option
-            flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
-                       checkboxGroupInput(inputId = "Parameterchoices",
-                                          label = "Parametros",
-                                          choices = parClimaticos(),
-                                          selected = parClimaticos())
-                       
-            )
-          }
-        }
+    parClimatico <- comparFunction(input$parametros)
+    if(input$selectData2 == "Calidad del aire"){
+      ##Options for calendarPlot
+      if(input$Select == "calendarPlot"){
+        flowLayout(
+          sliderInput("rango_calendar",
+                      "Rango:",
+                      step = 1,
+                      min = year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
+                      max = year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")),
+                      value = c(year(as.Date(input$Fecha_inicio, format = "%d/%m/%Y")),
+                                year(as.Date(input$Fecha_Termino, format = "%d/%m/%Y")))),
+          radioButtons(inputId = "choices",
+                       label = "Contaminantes",
+                       choices = input$Contaminantes)
+        )
+      }
+      else if(input$Select == "scatterPlot"){
+        ##Options for scatterPlot
+        flowLayout(
+          splitLayout(radioButtons(inputId = "x",
+                                   label = "Contaminantes",
+                                   choices = input$Contaminantes),
+                      radioButtons(inputId = "y",
+                                   label = "Contaminantes",
+                                   choices = input$Contaminantes)
+          ),
+          splitLayout(
+            #Logaritm options in the X axis
+            checkboxInput(inputId = "logx",label = "log(x)"),
+            #Logaritm options in the Y axis
+            checkboxInput(inputId ="logy",label = "log(y)"),
+            #Trace lineal correlation
+            checkboxInput(inputId ="lineal",label = "Lineal")
+          )
+          
+        )
         
       }
-    )
-    
+      else if(input$Select == "smoothTrend"){
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   radioButtons(inputId = "choices",
+                                label = "Contaminantes",
+                                choices = input$Contaminantes)
+        )
+      }
+      else if(input$Select == "timePlot"){
+        #Deploy un-group for station option
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   selectInput("avgtime","Promedio de tiempo",
+                               choices = c("hour","year","month","week",
+                                           "day")),
+                   checkboxGroupInput(inputId = "choices",
+                                      label = "Contaminantes",
+                                      choices = input$Contaminantes,
+                                      selected = input$Contaminantes)
+                   
+        )
+        
+      }
+      else{
+        #Deploy un-group for station option
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   checkboxGroupInput(inputId = "choices",
+                                      label = "Contaminantes",
+                                      choices = input$Contaminantes,
+                                      selected = input$Contaminantes)
+                   
+        )
+        
+      }
+    }
+    else if(input$selectData2 == "Data Climatica"){
+      if(input$Select == "calendarPlot"){
+        flowLayout(
+          sliderInput("rango_calendar",
+                      "Rango:",
+                      step = 1,
+                      min = input$rango[1],
+                      max =input$rango[2],
+                      value = c(input$rango[1],
+                                input$rango[2])),
+          radioButtons(inputId = "choices",
+                       label = "Parametros",
+                       choices = parClimatico)
+        )
+      }
+      else if(input$Select == "smoothTrend"){
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   radioButtons(inputId = "choices",
+                                label = "Parametros",
+                                choices = parClimatico)
+        )
+      }
+      else if(input$Select == "timePlot"){
+        #Deploy un-group for station option
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   selectInput("avgtime","Promedio de tiempo",
+                               choices = c("hour","year","month","week",
+                                           "day")),
+                   checkboxGroupInput(inputId = "choices",
+                                      label = "Parametros",
+                                      choices = parClimatico,
+                                      selected = parClimatico)
+        )
+        
+      }
+      else{
+        #Deploy un-group for station option
+        flowLayout(checkboxInput("checkSites","Desagrupar por Ciudad"),
+                   checkboxGroupInput(inputId = "choices",
+                                      label = "Parametros",
+                                      choices = parClimatico,
+                                      selected = parClimatico)
+        )
+      }
+    }
   })
   
-  #Data Table for air quality information
-  output$table <- DT::renderDataTable(
-    DT::datatable({data_totalAQ()},
-                  filter = "top",
-                  selection = 'multiple',
-                  style = 'bootstrap'
-    )
-  )
-  #Download Botton for air quality data
-  output$descargar<-downloadHandler(
-    filename = "data.csv",
-    content = function(file){
-      write.csv(data_totalAQ(), file)
-    }
-  )
-  
+  #Transform controls for meteorological parameters
   output$grafico<-renderPlot({
-    suppressWarnings(
-      {
-        if(input$selectData2 == "Calidad del aire"){
-          if(input$checkSites){
-            if(input$Select=="timeVariation")
-            {
-              #deploy timeVariation of air quality data un-group by site
-              timeVariation(data_totalAQ(),
-                            pollutant = input$choices,
-                            type = "site")
-            }
-            else if(input$Select=="corPlot"){
-              #deploy corPlot of air quality data un-group by site
-              corPlot(data_totalAQ(),
-                      pollutant = c(input$choices,input$F_Climaticos),
-                      type = "site")
-            }
-            else if(input$Select=="timePlot"){
-              #deploy timePlot of air quality data un-group by site
-              timePlot(data_totalAQ(),
-                       pollutant = input$choices,
-                       type = "site",
-                       avg.time = input$avgtime)
-            }
-            else if(input$Select=="polarPlot"){
-              #deploy polarPlot of air quality data un-group by site
-              polarPlot(data_totalAQ(),
-                        pollutant = input$choices,
-                        type = "site")
-            }
-            else if(input$Select=="calendarPlot"){
-              #deploy timePlot of air quality data un-group by site
-              calendarPlot(data_totalAQ(),
-                           pollutant = input$choices,
-                           type = "site",
-                           year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
-            }
-            else if(input$Select=="scatterPlot"){
-              #deploy scatterPlot of air quality data
-              scatterPlot(data_totalAQ(),
-                          x = input$x,
-                          y= input$y,
-                          x.log = input$logx,
-                          y.log = input$logy,
-                          linear = input$lineal)
-            }
-            else if(input$Select=="smoothTrend"){
-              smoothTrend(data_totalAQ(),
+    try({
+      
+      if(input$selectData2 == "Calidad del aire"){
+        if(input$checkSites){
+          if(input$Select=="timeVariation")
+          {
+            #deploy timeVariation of air quality data un-group by site
+            timeVariation(data_totalAQ(),
                           pollutant = input$choices,
                           type = "site")
-            }
-          }else{
-            if(input$Select=="timeVariation"){
-              #deploy timeVariation of air quality data
-              timeVariation(data_totalAQ(), pollutant = input$choices)
-            }
-            else if(input$Select=="corPlot"){
-              #deploy corPlot of air quality data
-              corPlot(data_totalAQ(), pollutant = c(input$choices,input$F_Climaticos))
-            }
-            else if(input$Select=="timePlot"){
-              #deploy timePlot of air quality data un-group by site
-              timePlot(data_totalAQ(), pollutant = input$choices, type = "site",
-                       avg.time = input$avgtime)
-            }
-            else if(input$Select=="polarPlot"){
-              #deploy polarPlot of air quality data un-group by site
-              polarPlot(data_totalAQ(), pollutant = input$choices)
-            }
-            else if(input$Select=="calendarPlot"){
-              #deploy calendarPlot of air quality data un-group by site
-              calendarPlot(data_totalAQ(), pollutant = input$choices, year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
-            }
-            else if(input$Select=="scatterPlot"){
-              #deploy scatterPlot of air quality data un-group by site
-              scatterPlot(data_totalAQ(),
-                          x = input$x,
-                          y= input$y,
-                          log.x = input$logx,
-                          log.y = input$logy,
-                          linear = input$lineal)
-            }
-            else if(input$Select=="smoothTrend"){
-              smoothTrend(data_totalAQ(), pollutant = input$choices)
-              
-            }
           }
-        }
-        else if (input$selectData2 == "Data Climatica"){
-          if(input$checkSites){
-            if(input$Select=="timeVariation"){
-              #deploy timeVariation of air quality data un-group by site
-              timeVariation(data_totalDC(),
-                            pollutant = input$choices, type = "Nombre")
-            }
-            else if(input$Select=="corPlot"){
-              #deploy corPlot of air quality data un-group by site
-              corPlot(data_totalDC(),
-                      pollutant = input$choices
-                      ,type = "Nombre")
-            }
-            else if(input$Select=="timePlot"){
-              #deploy timePlot of air quality data un-group by site
-              timePlot(data_totalDC(),
-                       pollutant = input$choices
-                       ,type = "Nombre",
-                       avg.time = input$avgtime)
-            }
-            else if(input$Select=="calendarPlot"){
-              #deploy timePlot of air quality data un-group by site
-              calendarPlot(data_totalDC(),
-                           pollutant = input$choices
-                           ,type = "Nombre", year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
-            }
-            else if(input$Select=="smoothTrend"){
-              smoothTrend(data_totalDC(),
-                          pollutant = input$choices
-                          ,type = "Nombre")
-            }
-            else{
-              tags$style(type="text/css",
-                         ".shiny-output-error { visibility: hidden; }",
-                         ".shiny-output-error:before { visibility: hidden; }")
-            }
-          }else{
-            if(input$Select=="timeVariation"){
-              #deploy timeVariation of air quality data
-              timeVariation(data_totalDC(), pollutant = input$choices)
-            }
-            else if(input$Select=="corPlot"){
-              #deploy corPlot of air quality data
-              corPlot(data_totalDC(), pollutant = input$choices)
-            }
-            else if(input$Select=="timePlot"){
-              #deploy timePlot of air quality data un-group by site
-              timePlot(data_totalDC(), pollutant = input$choices, avg.time = input$avgtime)
-            }
-            else if(input$Select=="calendarPlot"){
-              #deploy calendarPlot of air quality data un-group by site
-              calendarPlot(data_totalDC(), pollutant = input$choices, year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
-            }
-            else if(input$Select=="smoothTrend"){
-              smoothTrend(data_totalDC(), pollutant = input$choices)
-            }
+          else if(input$Select=="corPlot"){
+            #deploy corPlot of air quality data un-group by site
+            corPlot(data_totalAQ(),
+                    pollutant = c(input$choices,input$F_Climaticos),
+                    type = "site")
+          }
+          else if(input$Select=="timePlot"){
+            #deploy timePlot of air quality data un-group by site
+            timePlot(data_totalAQ(),
+                     pollutant = input$choices,
+                     type = "site",
+                     avg.time = input$avgtime)
+          }
+          else if(input$Select=="polarPlot"){
+            #deploy polarPlot of air quality data un-group by site
+            polarPlot(data_totalAQ(),
+                      pollutant = input$choices,
+                      type = "site")
+          }
+          else if(input$Select=="calendarPlot"){
+            #deploy timePlot of air quality data un-group by site
+            calendarPlot(data_totalAQ(),
+                         pollutant = input$choices,
+                         type = "site",
+                         year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
+          }
+          else if(input$Select=="scatterPlot"){
+            #deploy scatterPlot of air quality data
+            scatterPlot(data_totalAQ(),
+                        x = input$x,
+                        y= input$y,
+                        x.log = input$logx,
+                        y.log = input$logy,
+                        linear = input$lineal)
+          }
+          else if(input$Select=="smoothTrend"){
+            smoothTrend(data_totalAQ(),
+                        pollutant = input$choices,
+                        type = "site")
+          }
+        }else{
+          if(input$Select=="timeVariation"){
+            #deploy timeVariation of air quality data
+            timeVariation(data_totalAQ(), pollutant = input$choices)
+          }
+          else if(input$Select=="corPlot"){
+            #deploy corPlot of air quality data
+            corPlot(data_totalAQ(), pollutant = c(input$choices,input$F_Climaticos))
+          }
+          else if(input$Select=="timePlot"){
+            #deploy timePlot of air quality data un-group by site
+            timePlot(data_totalAQ(), pollutant = input$choices,
+                     avg.time = input$avgtime)
+          }
+          else if(input$Select=="polarPlot"){
+            #deploy polarPlot of air quality data un-group by site
+            polarPlot(data_totalAQ(), pollutant = input$choices)
+          }
+          else if(input$Select=="calendarPlot"){
+            #deploy calendarPlot of air quality data un-group by site
+            calendarPlot(data_totalAQ(), pollutant = input$choices, year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
+          }
+          else if(input$Select=="scatterPlot"){
+            #deploy scatterPlot of air quality data un-group by site
+            scatterPlot(data_totalAQ(),
+                        x = input$x,
+                        y= input$y,
+                        log.x = input$logx,
+                        log.y = input$logy,
+                        linear = input$lineal)
+          }
+          else if(input$Select=="smoothTrend"){
+            smoothTrend(data_totalAQ(), pollutant = input$choices)
             
           }
         }
       }
-    )
+      else if (input$selectData2 == "Data Climatica"){
+        if(input$checkSites){
+          if(input$Select=="timeVariation"){
+            #deploy timeVariation of air quality data un-group by site
+            timeVariation(data_totalDC(),
+                          pollutant = input$choices, type = "Nombre")
+          }
+          else if(input$Select=="corPlot"){
+            #deploy corPlot of air quality data un-group by site
+            corPlot(data_totalDC(),
+                    pollutant = input$choices
+                    ,type = "Nombre")
+          }
+          else if(input$Select=="timePlot"){
+            #deploy timePlot of air quality data un-group by site
+            timePlot(data_totalDC(),
+                     pollutant = input$choices
+                     ,type = "Nombre",
+                     avg.time = input$avgtime)
+          }
+          else if(input$Select=="calendarPlot"){
+            #deploy timePlot of air quality data un-group by site
+            calendarPlot(data_totalDC(),
+                         pollutant = input$choices
+                         ,type = "Nombre", year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
+          }
+          else if(input$Select=="smoothTrend"){
+            smoothTrend(data_totalDC(),
+                        pollutant = input$choices
+                        ,type = "Nombre")
+          }
+        }else{
+          if(input$Select=="timeVariation"){
+            #deploy timeVariation of air quality data
+            timeVariation(data_totalDC(), pollutant = input$choices)
+          }
+          else if(input$Select=="corPlot"){
+            #deploy corPlot of air quality data
+            corPlot(data_totalDC(), pollutant = input$choices)
+          }
+          else if(input$Select=="timePlot"){
+            #deploy timePlot of air quality data un-group by site
+            timePlot(data_totalDC(), pollutant = input$choices, avg.time = input$avgtime)
+          }
+          else if(input$Select=="calendarPlot"){
+            #deploy calendarPlot of air quality data un-group by site
+            calendarPlot(data_totalDC(), pollutant = input$choices, year = as.numeric(input$rango_calendar[1]):as.numeric(input$rango_calendar[2]))
+          }
+          else if(input$Select=="smoothTrend"){
+            smoothTrend(data_totalDC(), pollutant = input$choices)
+          }
+          
+        }
+      }
+    }, silent = TRUE)
   })
-  
   
   #Graphics options descriptions
   output$text<-renderUI({
@@ -469,8 +390,6 @@ shinyServer(function(input, output) {
                 de hora del día - día de la semana y un gráfico mensual. También se muestra
                 en los gráficos el intervalo de confianza del 95% en la media.")
         )
-        
-        
       }
       else if(input$Select=="corPlot"){
         #Corplot description
@@ -523,7 +442,6 @@ shinyServer(function(input, output) {
                        variables se relacionan entre sí."
           )
         )
-        
       }
       else if(input$Select=="smoothTrend"){
         #Corplot description
@@ -539,40 +457,96 @@ shinyServer(function(input, output) {
     })
   })
   
+  output$mainGraphics<-renderUI({
+    verticalLayout(
+      #Deploy air quality  graphics
+      withSpinner(plotOutput("grafico")),
+      uiOutput("text")
+      
+    )
+  })
+
+
+  ###################################### RESUMEN TAB ###########################
   
-  #Air quality variables
-  Variable<-isolate(c("PM10", "PM25","NOX","NO","NO2","O3", "CO", "temp", "ws", "wd", "HR"))
-  #Air quality variables full names
-  Nombre<-isolate(c("Material Particulado Respirable menor a 10 micras",
-                    "Material Particulado Respirable menor a 2,5 micras",
-                    "Oxido de Nitrógeno",
-                    "Monóxido de Nitrógeno",
-                    "Dióxido de Nitrógeno",
-                    "Ozono troposférico",
-                    "Monóxido de carbono",
-                    "Temperatura",
-                    "Velocidad del Viento",
-                    "Dirección del viento",
-                    "Humedad Relativa"))
-  #Units
-  Unidades<-isolate(c("ug/m3N","ug/m3N","ppb","ppb","ppb","ppb","ppb","°C","m/s","°","%"))
+  #  Select dataset
+  output$sData <- renderUI({
+    selectInput("selectData","Seleccionar dataset",
+                choices = c("--Seleccionar--","Data Climatica", "Calidad del aire")
+    )
+  })
   
-  #data frame with the variables descriptions
+  #Calculate the statistical summary
+  stats<-reactive(
+    if(input$selectData == "Data Climatica"){
+      if(input$statsummary == "Promedio"){
+        datamean2(data_totalDC())
+      }
+      else if(input$statsummary == "Mediana"){
+        datamedian2(data_totalDC())
+      }
+      else if(input$statsummary == "Desviacion Estandar"){
+        datasd2(data_totalDC())
+      }
+      else if(input$statsummary == "coeficiente de variacion"){
+        datacv2(data_totalDC())
+      }
+    }
+    else if(input$selectData == "Calidad del aire"){
+      if(input$statsummary == "Promedio"){
+        datamean(data_totalAQ())
+      }
+      else if(input$statsummary == "Mediana"){
+        datamedian(data_totalAQ())
+      }
+      else if(input$statsummary == "Desviacion Estandar"){
+        datasd(data_totalAQ())
+      }
+      else if(input$statsummary == "coeficiente de variacion"){
+        datacv(data_totalAQ())
+      }
+    }
+  )
+  
+  #Build the statistical summary table
+  output$statstable <- DT::renderDataTable(
+    DT::datatable({stats()},
+                  filter = "top",
+                  selection = 'multiple',
+                  style = 'bootstrap'
+    )
+  )
+  
+  #Download the statistical summary
+  output$descargarstats<-downloadHandler(
+    filename = "stats.csv",
+    content = function(file){
+      write.csv(stats(), file)
+    }
+  )
+
+
+  #################################INFORMACION TAB##############################
+  
+  #Map plot of air quality stations
+  
+  output$sitemap<-renderPlotly({
+    siteplot(ChileAirQuality())
+  })
+  
+  
+
+  #air quality variables descriptions
   output$info_2 <- renderTable({
-    data.frame(Variable, Nombre, Unidades)
+    read.csv("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQuality/master/data/varAQ.csv", 
+             encoding = "UTF-8")
   })
   
-  Parametros <- isolate(c("Ts", "Td", "HR", "QFF", "QFE", "dd", "ff", "VRB")) 
-  Descripcion <- isolate(c("Temperatura de aire seco",
-                           "Temperatura de punto de rocio",
-                           "Humedad relativa", 
-                           "Presion en el entorno aeronáutico",
-                           "Presion a nivel del mar", 
-                           "Direccion del viento",
-                           "Velocidad del viento", 
-                           "Variabilidad del viento"))
-  Unidad <- isolate(c("°C", "°C", "%", "Pa", "Pa", "°", "m/s", "Boolean"))
+  #data climate variables descriptions
   output$info_3 <- renderTable({
-    data.frame(Parametros, Descripcion, Unidad)
+    read.csv("https://raw.githubusercontent.com/franciscoxaxo/ChileAirQuality/master/data/varDC.csv", 
+             encoding = "UTF-8")
   })
+  
+
 })
