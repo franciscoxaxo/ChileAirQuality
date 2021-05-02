@@ -1,12 +1,12 @@
-Variable;Nombre;Unidades
-PM10;Material Particulado Respirable menor a 10 micras;µg/m3N
-PM25;Material Particulado Respirable menor a 2,5 micras;µg/m3N
-NOX;Oxido de Nitrógeno;ppb
-NO;Monóxido de Nitrógeno;ppb
-NO2;Dióxido de Nitrógeno;ppb
-O3;Ozono troposférico;ppb
-CO;Monóxido de carbono;ppb
-temp;Temperatura;°C
-ws;Velocidad del Viento;m/s
-wd;Dirección del viento;°
-HR;Humedad Relativa;%
+ParÃ¡metro, DescripciÃ³n, Unidades
+PM10, Material Particulado Respirable menor a 10 micras, Âµg/m3N
+PM25, Material Particulado Respirable menor a 2,5 micras, Âµg/m3N
+NOX, Ã“xido de NitrÃ³geno, ppb
+NO, MonÃ³xido de NitrÃ³geno, ppb
+NO2, DiÃ³xido de NitrÃ³geno, ppb
+O3, Ozono troposfÃ©rico, ppb
+CO, MonÃ³xido de carbono, ppb
+temp, Temperatura, Â°C
+ws, Velocidad del Viento, m/s
+wd, DirecciÃ³n del viento, Â°
+HR, Humedad Relativa,%
