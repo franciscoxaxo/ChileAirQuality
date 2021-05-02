@@ -124,7 +124,7 @@ comparFunction<- function(data){
   return(a)
 }
 
-siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centro = c(-70.6, -33.4)){
+siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centro = c(-70.6, -33.4), zoom = 9){
   library("ggplot2")
   library("plotly")
   library("dplyr")
@@ -140,7 +140,7 @@ siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centr
     layout(
       mapbox = list(
         style = 'open-street-map',
-        zoom =9,
+        zoom = zoom,
         center = list(lon = centro[1], lat = centro[2])
       )
     ) 
