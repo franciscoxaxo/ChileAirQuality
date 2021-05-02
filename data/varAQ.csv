@@ -1,6 +1,6 @@
 Parámetro, Descripción, Unidades
-PM10, Material Particulado Respirable menor a 10 micras, µg/m3N
-PM25, Material Particulado Respirable menor a 2.5 micras, µg/m3N
+PM10, Material Particulado Respirable menor a 10 micras, µg/m³N
+PM25, Material Particulado Respirable menor a 2.5 micras, µg/m³N
 NOX, Óxido de Nitrógeno, ppb
 NO, Monóxido de Nitrógeno, ppb
 NO2, Dióxido de Nitrógeno, ppb
