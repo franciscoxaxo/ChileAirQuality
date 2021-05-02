@@ -124,7 +124,7 @@ comparFunction<- function(data){
   return(a)
 }
 
-siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centro = c(-70.6, -33.4), zoom = 9){
+siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centro = c(-70.6, -33.4), zoom = 9, nombre = data$Estacion, abr= data$Ciudad){
   library("ggplot2")
   library("plotly")
   library("dplyr")
@@ -133,7 +133,7 @@ siteplot<-function(data, latitud = data$Longitud, longitud = data$Latitud, centr
                lat = latitud,
                lon = longitud,
                marker = list(color = "red"),
-               hovertext = ~paste("Estacion:", data$Estacion,"<br />", "Site:", data$Ciudad), 
+               hovertext = ~paste("Estacion:", nombre ,"<br />", "Site:", abr), 
                type = 'scattermapbox'
   )
   fig<-fig %>%
