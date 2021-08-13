@@ -66,7 +66,7 @@ ChileClimateData <- function(Estaciones = "INFO", Parametros, inicio, fin, Regio
     stop("Verificar fechas de inicio y fin")
   }
 
-  url1 <- "https://climatologia.meteochile.gob.cl/application/productos/gethistoricos/"
+  url1 <- "https://climatologia.meteochile.gob.cl/application/datos/getDatosSaclim/"
 
   parametros_list <- c("Temperatura", "PuntoRocio", "Humedad",
                        "Viento", "PresionQFE", "PresionQFF")
